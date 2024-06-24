@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Carts ;
 
 class User extends Authenticatable
 {
@@ -23,10 +24,18 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+
+    public function cart(){
+        return $this->hasOne(Carts::class,'uid');
+    }
+
     protected $fillable = [
         'name',
         'email',
         'password',
+        'role',
+        "description",
+        "country"
     ];
 
     /**

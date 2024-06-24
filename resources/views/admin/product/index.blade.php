@@ -27,12 +27,13 @@
                                         <th>Description</th>
                                         <th>Image</th>
                                         <th>Count</th>
-                                        <th>Date</th>
+                                        <th>Created At</th>
                                         <th>Price</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @if ($products != [])
+                                    @if (count($products) > 0)
                                         @foreach ($products as $pro)
                                             <tr>
                                                 <th>{{ $pro->id }}</th>
@@ -40,10 +41,27 @@
                                                 <td>
                                                     <span class="badge badge-primary px-2">Sale</span>
                                                     <span class="badge badge-danger px-2">Tax</span>
+
                                                     <span class="badge badge-success px-2">Extended</span>
                                                 </td>
-                                                <td>January 22</td>
-                                                <td class="color-primary">$21.56</td>
+                                                <td width=40>{{ $pro->description }}</td>
+                                                <td><img style="width: 280px"
+                                                        src="{{ url('') }}/images/products/{{ $pro->image }}"
+                                                        alt=""></td>
+                                                <td>{{ $pro->count }}</td>
+                                                <td>{{ $pro->created_at }}</td>
+                                                <td class="color-primary">{{ $pro->price }} vnd</td>
+                                                <td>
+                                                    <form action="{{ route('deleteProduct', ['id' => $pro->id]) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" href="" class="btn btn-danger">Delete
+                                                        </button>
+                                                    </form>
+                                                    <a href=" {{ route('ShowFormEditProduct', ['id' => $pro->id]) }} "
+                                                        class="btn btn-primary">Edit</a>
+                                                </td>
                                             </tr>
                                         @endforeach
                                     @else

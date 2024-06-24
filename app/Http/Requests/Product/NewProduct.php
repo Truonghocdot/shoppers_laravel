@@ -22,11 +22,12 @@ class NewProduct extends FormRequest
     public function rules(): array
     {
         return [
-            'title'=>"bail|required|min:10",
-            "description"=>"bail|required|min:20",
+            'title'=>"bail|required|min:5",
+            "description"=>"bail|required|min:10",
             "image"=>"required|mimes:jpg,png,jepg,gif,svg",
             "count"=>"required|min:1",
-            "price"=>"required|min:6"
+            "price"=>"required|min:2|max:9",
+            "promotion_price"=>"max:9"
         ];
     }
 }

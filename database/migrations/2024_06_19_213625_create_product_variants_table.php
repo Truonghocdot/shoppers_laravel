@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer("size_id");
             $table->integer("color_id");    
             $table->integer("quantity");
-
+            $table->integer("count");   
             $table->timestamps();
         });
     }

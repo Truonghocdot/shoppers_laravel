@@ -297,8 +297,7 @@
                             <i class="fa fa-users"></i><span class="nav-text">Account</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="app-profile.html">Profile</a></li>
-                            <li><a href="app-calender.html">Calender</a></li>
+                            <li><a href="{{ route('showAccount') }}">accounts</a></li>
                         </ul>
                     </li>
                     <li>
@@ -319,10 +318,8 @@
                             <i class="icon-layers menu-icon"></i><span class="nav-text">Categories</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="uc-nestedable.html">Nestedable</a></li>
-                            <li><a href="uc-noui-slider.html">Noui Slider</a></li>
-                            <li><a href="uc-sweetalert.html">Sweet Alert</a></li>
-                            <li><a href="uc-toastr.html">Toastr</a></li>
+                            <li><a href="{{ route('ShowCategories') }}">Categories</a></li>
+                            <li><a href="{{ route('ShowFormAddCategory') }}">Add catgories</a></li>
                         </ul>
                     </li>
                     <li>

@@ -4,7 +4,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12 mb-0"><a href="index.html">Home</a> <span class="mx-2 mb-0">/</span> <strong
-                        class="text-black">Tank Top T-Shirt</strong></div>
+                        class="text-black">{{ $category->title }}</strong></div>
             </div>
         </div>
     </div>
@@ -13,36 +13,37 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <img src="images/cloth_1.jpg" alt="Image" class="img-fluid">
+                    <img src="/images/products/{{ $product->image }}" alt="Image" class="img-fluid">
                 </div>
-                <div class="col-md-6">
-                    <h2 class="text-black">Tank Top T-Shirt</h2>
+                <form action="{{ route('cart.add.item') }}" method="POST" class="col-md-6">
+                    <h2 class="text-black">{{ $product->title }}</h2>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur, vitae, explicabo? Incidunt
                         facere, natus soluta dolores iusto! Molestiae expedita veritatis nesciunt doloremque sint asperiores
                         fuga voluptas, distinctio, aperiam, ratione dolore.</p>
-                    <p class="mb-4">Ex numquam veritatis debitis minima quo error quam eos dolorum quidem perferendis.
-                        Quos repellat dignissimos minus, eveniet nam voluptatibus molestias omnis reiciendis perspiciatis
-                        illum hic magni iste, velit aperiam quis.</p>
-                    <p><strong class="text-primary h4">$50.00</strong></p>
+                    <p class="mb-4">{{ $product->description }}</p>
+                    <p><strong class="text-primary h4">${{ $product->price }}.00</strong></p>
                     <div class="mb-1 d-flex">
+                        @csrf
+                        <input type="hidden" name="pro_id" value="{{ $product->id }}">
                         <label for="option-sm" class="d-flex mr-3 mb-3">
                             <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio"
-                                    id="option-sm" name="shop-sizes"></span> <span
+                                    id="option-sm" value="S" required name="shop-sizes"></span> <span
                                 class="d-inline-block text-black">Small</span>
                         </label>
                         <label for="option-md" class="d-flex mr-3 mb-3">
                             <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio"
-                                    id="option-md" name="shop-sizes"></span> <span
+                                    id="option-md" value="M" name="shop-sizes"></span> <span
                                 class="d-inline-block text-black">Medium</span>
                         </label>
                         <label for="option-lg" class="d-flex mr-3 mb-3">
                             <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio"
-                                    id="option-lg" name="shop-sizes"></span> <span
+                                    id="option-lg" value="L" name="shop-sizes"></span> <span
                                 class="d-inline-block text-black">Large</span>
                         </label>
                         <label for="option-xl" class="d-flex mr-3 mb-3">
                             <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio"
-                                    id="option-xl" name="shop-sizes"></span> <span class="d-inline-block text-black"> Extra
+                                    id="option-xl" value='XL' name="shop-sizes"></span> <span
+                                class="d-inline-block text-black"> Extra
                                 Large</span>
                         </label>
                     </div>
@@ -51,17 +52,17 @@
                             <div class="input-group-prepend">
                                 <button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
                             </div>
-                            <input type="text" class="form-control text-center" value="1" placeholder=""
-                                aria-label="Example text with button addon" aria-describedby="button-addon1">
+                            <input type="text" value="1" id="count_product" class="form-control text-center"
+                                placeholder="" aria-label="Example text with button addon" name="count"
+                                aria-describedby="button-addon1">
                             <div class="input-group-append">
                                 <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
                             </div>
                         </div>
-
                     </div>
-                    <p><a href="cart.html" class="buy-now btn btn-sm btn-primary">Add To Cart</a></p>
-
-                </div>
+                    <p><button id='button-submit' type="submit" class="buy-now btn btn-sm btn-primary">Add To Cart</button>
+                    </p>
+                </form>
             </div>
         </div>
     </div>
@@ -76,69 +77,31 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="nonloop-block-3 owl-carousel">
-                        <div class="item">
-                            <div class="block-4 text-center">
-                                <figure class="block-4-image">
-                                    <img src="images/cloth_1.jpg" alt="Image placeholder" class="img-fluid">
-                                </figure>
-                                <div class="block-4-text p-4">
-                                    <h3><a href="#">Tank Top</a></h3>
-                                    <p class="mb-0">Finding perfect t-shirt</p>
-                                    <p class="text-primary font-weight-bold">$50</p>
+                        @if (count($products) > 0)
+                            @foreach ($products as $item)
+                                <div class="item">
+                                    <div class="block-4 text-center">
+                                        <figure class="block-4-image">
+                                            <img src="{{ url('') }}/images/products/{{ $item->image }}"
+                                                alt="Image placeholder" class="img-fluid">
+                                        </figure>
+                                        <div class="block-4-text p-4">
+                                            <h3><a
+                                                    href="{{ route('product.detail', ['id' => $item->id]) }}">{{ $item->title }}</a>
+                                            </h3>
+                                            <p class="mb-0">{{ $item->description }}</p>
+                                            <p class="text-primary font-weight-bold">${{ $item->price }}</p>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="block-4 text-center">
-                                <figure class="block-4-image">
-                                    <img src="images/shoe_1.jpg" alt="Image placeholder" class="img-fluid">
-                                </figure>
-                                <div class="block-4-text p-4">
-                                    <h3><a href="#">Corater</a></h3>
-                                    <p class="mb-0">Finding perfect products</p>
-                                    <p class="text-primary font-weight-bold">$50</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="block-4 text-center">
-                                <figure class="block-4-image">
-                                    <img src="images/cloth_2.jpg" alt="Image placeholder" class="img-fluid">
-                                </figure>
-                                <div class="block-4-text p-4">
-                                    <h3><a href="#">Polo Shirt</a></h3>
-                                    <p class="mb-0">Finding perfect products</p>
-                                    <p class="text-primary font-weight-bold">$50</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="block-4 text-center">
-                                <figure class="block-4-image">
-                                    <img src="images/cloth_3.jpg" alt="Image placeholder" class="img-fluid">
-                                </figure>
-                                <div class="block-4-text p-4">
-                                    <h3><a href="#">T-Shirt Mockup</a></h3>
-                                    <p class="mb-0">Finding perfect products</p>
-                                    <p class="text-primary font-weight-bold">$50</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="block-4 text-center">
-                                <figure class="block-4-image">
-                                    <img src="images/shoe_1.jpg" alt="Image placeholder" class="img-fluid">
-                                </figure>
-                                <div class="block-4-text p-4">
-                                    <h3><a href="#">Corater</a></h3>
-                                    <p class="mb-0">Finding perfect products</p>
-                                    <p class="text-primary font-weight-bold">$50</p>
-                                </div>
-                            </div>
-                        </div>
+                            @endforeach
+                        @else
+                            <h2>Empty data</h2>
+                        @endif
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <script></script>
 @endsection

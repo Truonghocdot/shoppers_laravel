@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Models\Carts ;
 class AuthController extends Controller
 {
     public function  ShowLogin() {
@@ -26,6 +27,10 @@ class AuthController extends Controller
             "email" => $request->email,
             "password" => Hash::make($request->password)
         ]);
+        $id = User::where('email',$request->email)->first()->id;
+        Carts::create([
+            'uid' => $id
+        ]);
         return redirect()->route("ShowLogin");
     }
 
@@ -34,10 +39,13 @@ class AuthController extends Controller
         $credentials = $request->all('email',"password");
         if(Auth::attempt($credentials)){
             $user = User::where("email",$credentials['email'])->first();
-            if($user->role == '0'){
+            if($user->role == 0){
                 return redirect("/");
-            }else{
+            }else if($user->role == 1){
                 return redirect("/admin/dashboard");
+            }else{
+                Auth::logout();
+                return view("authentication.login.index")->with("error","You can't access with this account. Because of you violated  regulations!");
             }
         }else{
             return view("authentication.login.index")->with("error","Password or email is incorrect!");

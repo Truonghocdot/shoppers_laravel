@@ -46,15 +46,18 @@
                                 @enderror
                                 <div class="form-group">
                                     <label>Promotion Price:</label>
-                                    <input type="number" value="0" class="form-control" name="Price promotion"
+                                    <input type="number" value="0" class="form-control" name="promotion_price"
                                         placeholder="Price ">
                                 </div>
+                                @error('promotion_price')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                                 <div class="form-group">
                                     <label for="">Categories: </label>
-                                    <select class="form-control">
-                                        <option>Children</option>
-                                        <option>Men</option>
-                                        <option>Women</option>
+                                    <select name="category" class="form-control">
+                                        @foreach ($categories as $cat)
+                                            <option value="{{ $cat->id }}">{{ $cat->title }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div class="form-group">

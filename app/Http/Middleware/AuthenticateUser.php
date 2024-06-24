@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Auth;
 
 class AuthenticateUser
 {
@@ -14,7 +15,12 @@ class AuthenticateUser
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
     public function handle(Request $request, Closure $next): Response
-    {
-        return $next($request);
+    {   
+        if(Auth::user() == null){
+            $error = 'You have to login before use this service!';
+            return response()->view('authentication.login.index',['error'=> 'You have to login before use this service!']);
+        }else{
+            return $next($request);
+        }
     }
 }
