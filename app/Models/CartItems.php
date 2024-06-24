@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class CartItems extends Model
 {
     use HasFactory;
-
+    protected $fillable = ['pro_id', 'cart_id', 'count', 'size'];
     public function products(){
         return $this->hasOne(Products::class,"pro_id");
     }

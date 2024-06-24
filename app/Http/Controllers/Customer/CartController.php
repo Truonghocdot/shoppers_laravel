@@ -25,12 +25,21 @@ class CartController extends Controller
 
     public function addCartItem(NewCartItem $req){
         $id_user = Auth::user()->id ;
-        dd($req->all());
         $pro_id = $req->all()['pro_id'];
-        $shop_sizes = $req->all()->shop_sizes;
-        $cart_id = Carts::where('uid',$id_user)->get();
-        $cart_items = CartItems::where('cart_id',$cart_id)->where('pro_id',$pro_id)->where("shop_sizes",$shop_sizes)->get();
-        dd($cart_items);
+        $shop_sizes = $req->all()['shop-sizes'];
+        $cart_id = Carts::where('uid',$id_user)->first();
+        dd($cart_id->all);
+        $cart_items = CartItems::where('cart_id',$cart_id)->where('pro_id',$pro_id)->where("size",$shop_sizes)->get();
+        if(count($cart_items) != 0){
+
+        }else{
+            CartItems::create([
+                'pro_id' => $pro_id,
+                'cart_id' => $cart_id->id,
+                'count' => $req->all()['count'],
+                'size' => $shop_sizes
+            ]);
+        }
     }
 
 }
