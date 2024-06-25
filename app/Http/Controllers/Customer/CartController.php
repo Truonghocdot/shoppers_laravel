@@ -21,10 +21,7 @@ class CartController extends Controller
         foreach($cart_items as $item){
             $total_price =$total_price + $item->price * $item->count;
         }
-        return view('customer.cart.index',[
-            'cart_items' => $cart_items,
-            'total' => $total_price
-        ]);
+        return view('customer.cart.index',['cart_items' => $cart_items,'total' => $total_price]);
     }
 
     public function addCartItem(NewCartItem $req){
@@ -62,7 +59,6 @@ class CartController extends Controller
                 ]);
             }
         }
-
         return redirect()->route('cart.index');
     }
 

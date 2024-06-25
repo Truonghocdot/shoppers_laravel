@@ -60,8 +60,9 @@
                             </div>
                         </div>
                     </div>
-                    <p><button id='button-submit' type="submit" class="buy-now btn btn-sm btn-primary">Add To Cart</button>
-                    </p>
+                    <div class=''><button id='button-submit' type="submit" class="buy-now btn btn-sm btn-primary">Add
+                            To Cart</button>
+                    </div>
                 </form>
             </div>
         </div>
