@@ -9,7 +9,6 @@ use App\Http\Requests\Cart\NewCartItem;
 use App\Models\Carts ;
 use App\Models\User;
 use App\Models\CartItems ;
- 
 
 class CartController extends Controller
 {
@@ -39,7 +38,7 @@ class CartController extends Controller
         }else{
             CartItems::create([
                 'pro_id' => $pro_id,
-                'cart_id' => $cart_id->id,
+                'cart_id' => $cart_id,
                 'count' => $req->all()['count'],
                 'size' => $shop_sizes
             ]);

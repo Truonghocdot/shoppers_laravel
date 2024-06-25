@@ -12,6 +12,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.0/dist/sweetalert2.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mukta:300,400,700">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="{{ url('') }}/fonts/icomoon/style.css">
     <link rel="stylesheet" href="{{ url('') }}/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ url('') }}/css/magnific-popup.css">
@@ -61,7 +64,12 @@
                                             @endauth
                                     </li>
                                     @auth
-                                        <li><a href="#"><span class="icon icon-heart-o"></span></a></li>
+                                        <li>
+                                            <a href="{{ route('wishlist') }}" class="site-cart">
+                                                <span class="icon icon-heart-o"></span>
+                                                <span class="count">{{ $countWishlistItems }}</span>
+                                            </a>
+                                        </li>
                                         <li>
                                             <a href="{{ route('cart.index') }}" class="site-cart">
                                                 <span class="icon icon-shopping_cart"></span>

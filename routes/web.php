@@ -11,7 +11,7 @@ use App\Http\Controllers\Admin\AccountController;
 use App\Http\Controllers\Customer\DetailProductController;
 use App\Http\Controllers\Customer\CartController;
 use App\Http\Controllers\WishlistController;
-
+use App\Http\Controllers\Admin\CouponController;
 
 Route::prefix('/')->group(function () {
     Route::get('', [HomeController::class,"index"])->name("home");
@@ -20,10 +20,13 @@ Route::prefix('/')->group(function () {
         Route::get("cart",[CartController::class,'index'])->name("cart.index");
         Route::post("add-cartitem",[CartController::class,'addCartItem'])->name('cart.add.item');
         Route::post('update-cartitem',[CartController::class,'updateCart'])->name('cart.update.item');
+        Route::get('delete-cart-item/{id}',[CartController::class,'deleteCartItem'])->name('cart.delete.item');
     });
     //wishlist
     Route::middleware(['userVerified'])->prefix('wishlist')->group(function () {
        Route::get("",[WishlistController::class, 'index'])->name('wishlist');
+       Route::patch("/add",[WishlistController::class, 'add_new'])->name('wishlist.new');
+       Route::get("/delete/{id}",[WishlistController::class, 'delete_item'])->name('wishlist.delete');
     });
     // shop
     Route::get('shop',[ShopController::class,'index'])->name("shop");
@@ -31,7 +34,7 @@ Route::prefix('/')->group(function () {
     Route::get("/shop/fillter/price/{type}",[ShopController::class,"fillter_price"])->name('shop.fillter.price');
     Route::get("/shop/fillter/name/{type}",[ShopController::class,"fillter_name"])->name("shop.fillter.name");
     Route::get("/shop/price/range",[ShopController::class,'fillter_range_price'])->name("shop.price.range");
-    Route::get('/shop/search',[ShopController::class,'search_by_name'])->name('shop.search.name');
+    Route::post('/shop/search',[ShopController::class,'search_by_name'])->name('shop.search.name');
     // detail product
     Route::get('/product/{id}', [DetailProductController::class, 'index'])->name("product.detail");
     //checkout
@@ -79,6 +82,13 @@ Route::prefix('/')->group(function () {
         Route::get("/account/ban/{id}",[AccountController::class,"banAccount"])->name("admin.account.ban");
         Route::get('/account/removeban/{id}', [AccountController::class, 'RemoveBanAccount'])->name('admin.account.removeban');
         Route::get("/account/profile/{id}",[AccountController::class,"showProfile"])->name("admin.account.profile");
+
+        //coupon
+        Route::get('/coupon',[CouponController::class,'index'])->name('admin.coupon');
+        Route::get("/coupon/delete/{id}",[CouponController::class,'deleteCoupon'])->name('admin.coupon.delete');
+        Route::post('/coupon/newdaily',[CouponController::class,'addNewDaily'])->name('admin.coupon.newdaily');
+        Route::post('/coupon/newByuser',[CouponController::class,'addNewByUser'])->name('admin.coupon.byuser');
+
     });
 
 });

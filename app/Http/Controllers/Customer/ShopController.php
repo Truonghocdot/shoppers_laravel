@@ -71,7 +71,7 @@ class ShopController extends Controller
 
     public function search_by_name(Request $req){
         $categories = Categories::all();
-        $products = Products::where('title',$req->title)->get();
+        $products = Products::where('title','LIKE','%'.$req->title .'%')->get();
         foreach ($categories as $item) {
             $count = $item->product()->count(); // Get the count of products directly
             $item->count_product = $count; 

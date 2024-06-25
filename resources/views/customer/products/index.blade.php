@@ -59,7 +59,19 @@
                                             </h3>
                                             <p class="mb-0">{{ $item->description }}</p>
                                             <p class="text-primary font-weight-bold">${{ $item->price }}</p>
-                                            <div class="d-flex justify-content-betw"></div>
+                                            <form action="{{ route('wishlist.new') }}"
+                                                class="d-flex justify-content-between" method="POST">
+                                                @method('PATCH')
+                                                @csrf
+                                                <input type="hidden" name="pro_id" value="{{ $item->id }}">
+                                                <button type="submit" class="btn btn-primary">
+                                                    <i class="fa-regular fa-heart"></i>
+                                                </button>
+                                                <a href="{{ route('product.detail', ['id' => $item->id]) }}"
+                                                    class="btn btn-primary">
+                                                    <i class="fa-regular fa-eye"></i>
+                                                </a>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -140,7 +152,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 @endsection
