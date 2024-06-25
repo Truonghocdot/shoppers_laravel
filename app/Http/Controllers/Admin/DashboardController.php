@@ -22,12 +22,11 @@ class DashboardController extends Controller
         // information of admin
         $admin = Auth::user() ;
         return view("admin.dashboard.index",[
-
             "countUsers" => $countUsers,
             "countProducts" => $countProducts,
             "countBlogs" => $countBlogs,
             "countCategories" => $countCategories,
-            "countOrders" =>$countOrders
+            "countOrders" =>$countOrders,
         ]);
     }
 }

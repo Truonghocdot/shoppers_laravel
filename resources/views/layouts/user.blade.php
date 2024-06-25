@@ -8,33 +8,31 @@
 <head>
     <title>@yield('title')</title>
     <meta charset="utf-8">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.0/dist/sweetalert2.all.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.0/dist/sweetalert2.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mukta:300,400,700">
     <link rel="stylesheet" href="{{ url('') }}/fonts/icomoon/style.css">
-
     <link rel="stylesheet" href="{{ url('') }}/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ url('') }}/css/magnific-popup.css">
     <link rel="stylesheet" href="{{ url('') }}/css/jquery-ui.css">
     <link rel="stylesheet" href="{{ url('') }}/css/owl.carousel.min.css">
     <link rel="stylesheet" href="{{ url('') }}/css/owl.theme.default.min.css">
-
     <link rel="stylesheet" href="{{ url('') }}/css/aos.css">
-
     <link rel="stylesheet" href="{{ url('') }}/css/style.css">
-
 </head>
 
 <body>
-
     <div class="site-wrap">
         <header class="site-navbar" role="banner">
             <div class="site-navbar-top">
                 <div class="container">
                     <div class="row align-items-center">
                         <div class="col-6 col-md-4 order-2 order-md-1 site-search-icon text-left">
-                            <form action="#" class="site-block-top-search">
+                            <form action="{{ route('shop.search.name') }}" method="POST" class="site-block-top-search">
+                                @csrf
                                 <span class="icon icon-search2"></span>
-                                <input type="text" class="form-control border-0" placeholder="Search">
+                                <input type="text" name="title" class="form-control border-0" placeholder="Search">
                             </form>
                         </div>
                         <div class="col-12 mb-3 mb-md-0 col-md-4 order-1 order-md-2 text-center">
@@ -62,16 +60,21 @@
                                                 <a class="dropdown-item" href="{{ route('logout') }}">Sign ount</a>
                                             @endauth
                                     </li>
-                                    <li><a href="#"><span class="icon icon-heart-o"></span></a></li>
-                                    <li>
-                                        <a href="{{ route('cart.index') }}" class="site-cart">
-                                            <span class="icon icon-shopping_cart"></span>
-                                            <span class="count">2</span>
-                                        </a>
-                                    </li>
-                                    <li class="d-inline-block d-md-none ml-md-0"><a href="#"
-                                            class="site-menu-toggle js-menu-toggle"><span class="icon-menu"></span></a>
-                                    </li>
+                                    @auth
+                                        <li><a href="#"><span class="icon icon-heart-o"></span></a></li>
+                                        <li>
+                                            <a href="{{ route('cart.index') }}" class="site-cart">
+                                                <span class="icon icon-shopping_cart"></span>
+                                                <span class="count">{{ $countCartItems }}</span>
+                                            </a>
+                                        </li>
+                                        <li class="d-inline-block d-md-none ml-md-0">
+                                            <a href="#" class="site-menu-toggle js-menu-toggle">
+                                                <span class="icon-menu"></span>
+                                                <span class="count">2</span>
+                                            </a>
+                                        </li>
+                                    @endauth
                                 </ul>
                             </div>
                         </div>
@@ -90,6 +93,7 @@
                         </li>
                         <li><a href="{{ route('shop') }}">Shop</a></li>
                         <li><a href="{{ route('contact') }}">Contact</a></li>
+                        <li><a href="">Coupon </a></li>
                     </ul>
                 </div>
             </nav>
@@ -188,6 +192,11 @@
     <script src="{{ url('') }}/js/aos.js"></script>
     <script src="{{ url('') }}/js/main.js"></script>
 
+    @auth
+        <script>
+            var count_cart_items = new XMLHttpRequest();
+        </script>
+    @endauth
 </body>
 
 <!-- Mirrored from technext.github.io/shoppers/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 17 Jun 2024 13:01:43 GMT -->

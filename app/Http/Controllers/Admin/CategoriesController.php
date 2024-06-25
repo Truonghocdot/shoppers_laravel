@@ -6,12 +6,18 @@ use App\Http\Requests\Categories\NewCategory;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Categories;
+use DateTime ;
 
 class CategoriesController extends Controller
 {
     public function ShowCategories(){
-        $categories = Categories::get()->toArray();
-        return view("admin.category.index",compact("categories"));
+        $categories = Categories::get();
+        $title = '';
+        foreach ($categories as $item) {
+            $date = new DateTime($item->created_at);
+            $item->created_at = $date->format('Y-m-d H:i:s'); 
+        }
+        return view("admin.category.index",compact("categories",'title'));
     }
 
     public function ShowFormAddCategory(){
@@ -52,5 +58,12 @@ class CategoriesController extends Controller
         ]);
 
         return redirect()->route("ShowCategories");
+    }
+
+    public function searchProduct(Request $req){
+        $products = Categories::where('title','LIKE','%' . $req->title . '%')->get();
+        $products = $products->all();
+        $title = $req->title;
+        return view("admin.category.index",compact('categories','title'));
     }
 }

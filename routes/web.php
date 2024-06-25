@@ -10,6 +10,7 @@ use App\Http\Controllers\Customer\ShopController;
 use App\Http\Controllers\Admin\AccountController;
 use App\Http\Controllers\Customer\DetailProductController;
 use App\Http\Controllers\Customer\CartController ;
+use App\Http\Controllers\Admin\CouponController ;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,14 +30,23 @@ Route::prefix('/')->group(function () {
     Route::middleware(['userVerified'])->group(function () {
         Route::get("cart",[CartController::class,'index'])->name("cart.index");
         Route::post("add-cartitem",[CartController::class,'addCartItem'])->name('cart.add.item');
+        Route::post("cart/update-item",[CartController::class,'updateCart'])->name("cart.update.item");
+        Route::get("cart/delete-item/{id}",[CartController::class,'deleteCartItem'])->name("cart.delete.item");
     });
-    
+    //
+    //check out 
+    Route::middleware(['userVerified'])->group(function () {
+        Route::get("check-out",function ()  {
+           return view('customer.checkout.index'); 
+        })->name('checkout');
+    });
     // shop
     Route::get('shop',[ShopController::class,'index'])->name("shop");
     Route::get("/shop/{title}",[ShopController::class,"fillter_category"])->name("shop.category");
     Route::get("/shop/fillter/price/{type}",[ShopController::class,"fillter_price"])->name('shop.fillter.price');
     Route::get("/shop/fillter/name/{type}",[ShopController::class,"fillter_name"])->name("shop.fillter.name");
     Route::get("/shop/price/range",[ShopController::class,'fillter_range_price'])->name("shop.price.range");
+    Route::post("/shop/name",[ShopController::class,'search_name'])->name('shop.search.name');
     // detail product
     Route::get('/product/{id}', [DetailProductController::class, 'index'])->name("product.detail");
     
@@ -66,6 +76,7 @@ Route::prefix('/')->group(function () {
         Route::get("/editProduct/{id}",[ProductController::class,"ShowFormEditProduct"])->name("ShowFormEditProduct");
         Route::delete('product/{id}', [ProductController::class,"DeleteProduct"])->name("deleteProduct");
         Route::post("/updateProduct/{id}" , [ProductController::class,"UpdateProduct"])->name("updateProduct");
+        Route::get("/products/search",[ProductController::class,"searchProduct"])->name('admin.product.search');
 
         //categories
         Route::get("/categories",[CategoriesController::class,"ShowCategories"])->name("ShowCategories");
@@ -74,6 +85,8 @@ Route::prefix('/')->group(function () {
         Route::get("/editCategory/{id}",[CategoriesController::class,"ShowFormEditCategory"])->name("ShowFormEditCategory");
         Route::delete('Category/{id}', [CategoriesController::class,"DeleteCategory"])->name("deleteCategory");
         Route::post("/updateCategory/{id}" , [CategoriesController::class,"UpdateCategory"])->name("updateCategory");
+        Route::get("/categories/search",[CategoriesController::class,"searchCategory"])->name('admin.categories.search');
+
 
         //account
         Route::get("/account",[AccountController::class,'index'])->name("showAccount");
@@ -81,6 +94,11 @@ Route::prefix('/')->group(function () {
         Route::get("/account/ban/{id}",[AccountController::class,"banAccount"])->name("admin.account.ban");
         Route::get('/account/removeban/{id}', [AccountController::class, 'RemoveBanAccount'])->name('admin.account.removeban');
         Route::get("/account/profile/{id}",[AccountController::class,"showProfile"])->name("admin.account.profile");
+        //coupon 
+        Route::get('/coupon',[CouponController::class,'index'])->name('admin.coupon');
+        Route::post('/coupon/newdaily',[CouponController::class,'addNewDaily'])->name('admin.coupon.newdaily') ;
+        Route::post('/coupon/byuser',[CouponController::class,'addNewByUser'])->name('admin.coupon.byuser') ;
+        Route::get('/coupon/delete/{id}',[CouponController::class,'deleteCoupon'])->name("admin.coupon.delete");
     });
 
 });

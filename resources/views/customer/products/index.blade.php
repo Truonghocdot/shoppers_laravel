@@ -3,7 +3,7 @@
     <div class="bg-light py-3">
         <div class="container">
             <div class="row">
-                <div class="col-md-12 mb-0"><a href="index.html">Home</a> <span class="mx-2 mb-0">/</span> <strong
+                <div class="col-md-12 mb-0"><a href="{{ route('home') }}">Home</a> <span class="mx-2 mb-0">/</span> <strong
                         class="text-black">Shop</strong></div>
             </div>
         </div>
@@ -88,6 +88,18 @@
                                 <div id="slider-range" class="border-primary"></div>
                                 <input type="text" name="text" id="amount"
                                     class="form-control border-0 pl-0 bg-white" />
+                                <button type="submit" class="btn btn-primary">Search</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="border p-4 rounded mb-4">
+                        <div class="mb-4">
+                            <form action="{{ route('shop.search.name') }}" method="POST">
+                                @csrf
+                                <h3 class="mb-3 h6 text-uppercase text-black d-block">Search by Name</h3>
+                                <div id="slider-range" class="border-primary"></div>
+                                <input class="mb-4" type="text" name="title" placeholder="Name product">
                                 <button type="submit" class="btn btn-primary">Search</button>
                             </form>
                         </div>

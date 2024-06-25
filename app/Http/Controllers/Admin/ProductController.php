@@ -11,9 +11,10 @@ use App\Models\Categories ;
 class ProductController extends Controller
 {
     public function ShowProducts(){
-        $products = Products::get();
+        $products = Products::join('categories','products.cat_id', '=','categories.id')->select('products.title','products.id','products.count','products.price','products.image','products.created_at','categories.title as cat_name')->get();
         $products = $products->all();
-        return view("admin.product.index",compact('products'));
+        $title = '';
+        return view("admin.product.index",compact('products','title'));
     }
 
     public function ShowFormAddProduct()  {
@@ -85,4 +86,10 @@ class ProductController extends Controller
         return redirect()->route("ShowProducts");
     }
 
+    public function searchProduct(Request $req){
+        $products = Products::where('title','LIKE','%' . $req->title . '%')->get();
+        $products = $products->all();
+        $title = $req->title;
+        return view("admin.product.index",compact('products','title'));
+    }
 }

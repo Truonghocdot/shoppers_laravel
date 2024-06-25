@@ -17,6 +17,15 @@
                         <div class="card-title">
                             <h4>Table Products</h4>
                         </div>
+                        <div class="d-flex justify-content-between">
+                            <a href="{{ route('ShowFormAddProduct') }}" class="btn btn-primary">Add product</a>
+                            <form action="{{ route('admin.product.search') }}" class="d-flex" method="GET">
+                                @csrf
+                                <input type="text" class="form-control" value="{{ $title ? $title : '' }}" name='title'
+                                    placeholder="Enter name product">
+                                <button class="btn btn-primary" type="submit">Search</button>
+                            </form>
+                        </div>
                         <div class="table-responsive">
                             <table class="table table-hover">
                                 <thead>
@@ -24,7 +33,7 @@
                                         <th>#</th>
                                         <th>Title</th>
                                         <th>Status</th>
-                                        <th>Description</th>
+                                        <th>Category</th>
                                         <th>Image</th>
                                         <th>Count</th>
                                         <th>Created At</th>
@@ -44,19 +53,21 @@
 
                                                     <span class="badge badge-success px-2">Extended</span>
                                                 </td>
-                                                <td width=40>{{ $pro->description }}</td>
+                                                <td>{{ $pro->cat_name }}</td>
                                                 <td><img style="width: 280px"
                                                         src="{{ url('') }}/images/products/{{ $pro->image }}"
                                                         alt=""></td>
                                                 <td>{{ $pro->count }}</td>
                                                 <td>{{ $pro->created_at }}</td>
-                                                <td class="color-primary">{{ $pro->price }} vnd</td>
+                                                <td class="color-primary">$ {{ $pro->price }}</td>
                                                 <td>
                                                     <form action="{{ route('deleteProduct', ['id' => $pro->id]) }}"
                                                         method="POST">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit" href="" class="btn btn-danger">Delete
+                                                        <button type="submit"
+                                                            onclick="return confirm('Do you really want to delete this item?')"
+                                                            href="" class="btn btn-danger">Delete
                                                         </button>
                                                     </form>
                                                     <a href=" {{ route('ShowFormEditProduct', ['id' => $pro->id]) }} "

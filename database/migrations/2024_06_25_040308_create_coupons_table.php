@@ -11,9 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('colors', function (Blueprint $table) {
+        Schema::create('coupons', function (Blueprint $table) {
             $table->id();
-            $table->string("title",10);
+            $table->string('content',150) ;
+            $table->tinyInteger('value');
+            $table->integer('role')->default(0);
+            $table->string("thumbnail",20)->default("coupon.png") ;
+            $table->integer("count");
             $table->timestamps();
         });
     }
@@ -23,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('colors');
+        Schema::dropIfExists('coupons');
     }
 };

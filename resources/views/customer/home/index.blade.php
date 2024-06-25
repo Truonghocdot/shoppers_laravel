@@ -91,7 +91,7 @@
                         @if (count($products) > 0)
                             @foreach ($products as $item)
                                 <div class="item">
-                                    <a href="">
+                                    <a href="{{ route('product.detail', ['id' => $item->id]) }}">
                                         <div class="block-4 text-center">
                                             <figure class="block-4-image">
                                                 <img src="images/products/{{ $item->image }}" alt="Image placeholder"

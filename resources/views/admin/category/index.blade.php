@@ -15,7 +15,16 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="card-title">
-                            <h4>Table Products</h4>
+                            <h4>Table Categories</h4>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <a href="{{ route('ShowFormAddCategory') }}" class="btn btn-primary">Add category</a>
+                            <form action="{{ route('admin.categories.search') }}" class="d-flex" method="GET">
+                                @csrf
+                                <input type="text" class="form-control" value="{{ $title }}" name='title'
+                                    placeholder="Enter name category">
+                                <button class="btn btn-primary" type="submit">Search</button>
+                            </form>
                         </div>
                         <div class="table-responsive">
                             <table class="table table-hover">
@@ -34,7 +43,7 @@
                                             <tr>
                                                 <th>{{ $cat['id'] }}</th>
                                                 <td>{{ $cat['title'] }}</td>
-                                                <td><img style="width: 280px"
+                                                <td><img style="width: 150px"
                                                         src="{{ url('') }}/images/categories/{{ $cat['thumbnail'] }}"
                                                         alt=""></td>
                                                 <td>{{ $cat['created_at'] }}</td>
@@ -43,7 +52,9 @@
                                                         method="POST">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit" href="" class="btn btn-danger">Delete
+                                                        <button
+                                                            onclick="return confirm('Do you really want to delete this item?')"
+                                                            type="submit" href="" class="btn btn-danger">Delete
                                                         </button>
                                                     </form>
                                                     <a href=" {{ route('ShowFormEditCategory', ['id' => $cat['id']]) }} "
