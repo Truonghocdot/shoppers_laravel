@@ -1,45 +1,43 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController ;
-use App\Http\Controllers\Admin\DashboardController ;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CategoriesController;
 use App\Http\Controllers\Customer\HomeController;
 use App\Http\Controllers\Customer\ShopController;
 use App\Http\Controllers\Admin\AccountController;
 use App\Http\Controllers\Customer\DetailProductController;
-use App\Http\Controllers\Customer\CartController ;
+use App\Http\Controllers\Customer\CartController;
+use App\Http\Controllers\WishlistController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
 
 Route::prefix('/')->group(function () {
     Route::get('', [HomeController::class,"index"])->name("home");
-    
     //cart
     Route::middleware(['userVerified'])->group(function () {
         Route::get("cart",[CartController::class,'index'])->name("cart.index");
         Route::post("add-cartitem",[CartController::class,'addCartItem'])->name('cart.add.item');
+        Route::post('update-cartitem',[CartController::class,'updateCart'])->name('cart.update.item');
     });
-    
+    //wishlist
+    Route::middleware(['userVerified'])->prefix('wishlist')->group(function () {
+       Route::get("",[WishlistController::class, 'index'])->name('wishlist');
+    });
     // shop
     Route::get('shop',[ShopController::class,'index'])->name("shop");
     Route::get("/shop/{title}",[ShopController::class,"fillter_category"])->name("shop.category");
     Route::get("/shop/fillter/price/{type}",[ShopController::class,"fillter_price"])->name('shop.fillter.price');
     Route::get("/shop/fillter/name/{type}",[ShopController::class,"fillter_name"])->name("shop.fillter.name");
     Route::get("/shop/price/range",[ShopController::class,'fillter_range_price'])->name("shop.price.range");
+    Route::get('/shop/search',[ShopController::class,'search_by_name'])->name('shop.search.name');
     // detail product
     Route::get('/product/{id}', [DetailProductController::class, 'index'])->name("product.detail");
-    
+    //checkout
+    Route::get('checkout',function(){
+        return view('customer.checkout.index');
+    })->name('checkout');
     Route::get('contact', function () {
         return view('customer.contact.index');
     })->name("contact");

@@ -59,9 +59,7 @@
                                             </h3>
                                             <p class="mb-0">{{ $item->description }}</p>
                                             <p class="text-primary font-weight-bold">${{ $item->price }}</p>
-                                            <div class="d-flex justify-content-between">
-                                                
-                                            </div>
+                                            <div class="d-flex justify-content-betw"></div>
                                         </div>
                                     </div>
                                 </div>

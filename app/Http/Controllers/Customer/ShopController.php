@@ -27,7 +27,6 @@ class ShopController extends Controller
                 global $cat_id;
                 $cat_id = $item->id;
             }
-
         }
         $products = Products::where("cat_id",$cat_id)->get();
         foreach ($categories as $item) {
@@ -63,6 +62,16 @@ class ShopController extends Controller
         $price_2 = (int)str_replace("$","", $prices[1]);
         $categories = Categories::all();
         $products = Products::whereBetween('price',[$price_1, $price_2])->get();
+        foreach ($categories as $item) {
+            $count = $item->product()->count(); 
+            $item->count_product = $count; 
+        }
+        return view("customer.products.index", compact('categories', 'products'));
+    }
+
+    public function search_by_name(Request $req){
+        $categories = Categories::all();
+        $products = Products::where('title',$req->title)->get();
         foreach ($categories as $item) {
             $count = $item->product()->count(); // Get the count of products directly
             $item->count_product = $count; 
