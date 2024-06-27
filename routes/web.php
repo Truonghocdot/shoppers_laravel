@@ -23,6 +23,7 @@ Route::prefix('/')->group(function () {
         Route::middleware(['addToCart'])->post("add-cartitem",[CartController::class,'addCartItem'])->name('cart.add.item');
         Route::post('update-cartitem',[CartController::class,'updateCart'])->name('cart.update.item');
         Route::get('delete-cart-item/{id}',[CartController::class,'deleteCartItem'])->name('cart.delete.item');
+        Route::post("addcoupon",[CartController::class,'add_coupon'])->name("cart.add.coupon");
     });
     //wishlist
     Route::middleware(['userVerified'])->prefix('wishlist')->group(function () {
@@ -40,7 +41,7 @@ Route::prefix('/')->group(function () {
     // detail product
     Route::get('/product/{id}', [DetailProductController::class, 'index'])->name("product.detail");
     //checkout
-    Route::get('checkout',[CheckoutController::class, 'index'])->name('checkout');
+    Route::middleware(['userVerified'])->get('checkout',[CheckoutController::class, 'index'])->name('checkout');
     //coupon
     Route::middleware(['userVerified'])->prefix('coupon')->group(function () {
         Route::get('',[CouponUser::class,'index'])->name("coupon");

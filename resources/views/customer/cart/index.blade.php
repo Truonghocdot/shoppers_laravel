@@ -98,21 +98,52 @@
                                 Shopping</a>
                         </div>
                     </div>
+                    <form action="{{ route('cart.add.coupon') }}" method="POST" class="row">
+                        @csrf
+                        <div class="col-md-12">
+                            <label class="text-black h4" for="coupon">Coupon</label>
+                            <p>Enter your coupon code if you have one.</p>
+                        </div>
+                        <div class="col-md-8 mb-3 mb-md-0">
+                            <input type="text" name="code" class="form-control py-3" id="coupon"
+                                placeholder="Coupon Code">
+                        </div>
+                        @error('valid')
+                            <div class="alert alert-warning col-md-8 mb-3" role="alert">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                        <div class="col-md-4">
+                            <button type="submit" class="btn btn-primary btn-sm">Apply Coupon</button>
+                        </div>
+                    </form>
                 </div>
                 <div class="col-md-6 pl-5">
                     <div class="row justify-content-end">
                         <div class="col-md-7">
                             <div class="row">
-                                <div class="col-md-12 text-right border-bottom mb-5">
+                                <div class="col-md-12 text-right border-bottom mb-3 ">
                                     <h3 class="text-black h4 text-uppercase">Cart Totals</h3>
                                 </div>
                             </div>
+
+                            @if (count($coupon) > 0)
+                                @foreach ($coupon as $item)
+                                    <div class="row flex-column mb-3">
+                                        <h4 class="text-black text-end">Discount</h4>
+                                        <div class="d-flex justify-content-between">
+                                            <h6 class="text-black ">{{ $item->content }}</h6>
+                                            <span class="text-decoration-line-through">{{ $item->value }}%</span>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            @endif
                             <div class="row mb-3">
                                 <div class="col-md-6">
                                     <span class="text-black">Total</span>
                                 </div>
                                 <div class="col-md-6 text-right">
-                                    <strong class="text-black">${{ $total }}.00</strong>
+                                    <strong class="text-black">${{ $total }}</strong>
                                 </div>
                             </div>
                             <div class="row">
