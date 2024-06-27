@@ -55,12 +55,12 @@
                                             </a>
                                         @endguest
                                         @auth
-                                            <a class="nav-link dropdown-toggle" href="#" role="button"
+                                            <a class="nav-link dropdown-toggle" href="" role="button"
                                                 data-toggle="dropdown" aria-expanded="false">
                                                 <span class="icon icon-person"></span>
                                             </a>
                                             <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="#">Profile</a>
+                                                <a class="dropdown-item" href="{{ route('profile') }}">Profile</a>
                                                 <div class="dropdown-divider"></div>
                                                 <a class="dropdown-item" href="{{ route('logout') }}">Sign ount</a>
                                             @endauth

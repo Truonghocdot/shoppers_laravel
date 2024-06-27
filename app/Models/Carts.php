@@ -13,7 +13,7 @@ class Carts extends Model
     protected $fillable = ['uid','total'] ;
 
     public function cart_items(){
-        return $this->hasMany(CartItems::class);
+        return $this->hasMany(CartItems::class,'cart_id');
     }
 
     public function user(){

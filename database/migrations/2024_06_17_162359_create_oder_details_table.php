@@ -16,6 +16,7 @@ return new class extends Migration
             $table->integer('pro_id');
             $table->integer('order_id');
             $table->integer("count");
+            $table->string("size",5);
             $table->timestamps();
         });
     }

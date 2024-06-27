@@ -141,11 +141,6 @@
                             <i class="fa-solid fa-truck"></i><span class="nav-text">Orders Detail</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="form-basic.html">Basic Form</a></li>
-                            <li><a href="form-validation.html">Form Validation</a></li>
-                            <li><a href="form-step.html">Step Form</a></li>
-                            <li><a href="form-editor.html">Editor</a></li>
-                            <li><a href="form-picker.html">Picker</a></li>
                         </ul>
                     </li>
                     <li>
@@ -161,12 +156,6 @@
                             <i class="fa fa-newspaper"></i> <span class="nav-text">Blogs</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="chart-flot.html">Flot</a></li>
-                            <li><a href="chart-morris.html">Morris</a></li>
-                            <li><a href="chart-chartjs.html">Chartjs</a></li>
-                            <li><a href="chart-chartist.html">Chartist</a></li>
-                            <li><a href="chart-sparkline.html">Sparkline</a></li>
-                            <li><a href="chart-peity.html">Peity</a></li>
                         </ul>
                     </li>
                     <li>

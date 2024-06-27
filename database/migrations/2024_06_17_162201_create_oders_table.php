@@ -16,8 +16,12 @@ return new class extends Migration
             $table->integer('status')->default(0);
             $table->integer('uid');
             $table->string("address",150);
-            $table->integer('userphone');
+            $table->string('userphone',20);
+            $table->text('full_name');
+            $table->string('email',50);
             $table->integer('total_money');
+            $table->string("payment",30);
+            $table->text('notes')->nullable();
             $table->timestamps();
         });
     }

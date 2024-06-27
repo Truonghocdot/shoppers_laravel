@@ -13,6 +13,7 @@ use App\Http\Controllers\Customer\CartController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\Customer\CouponController as CouponUser ;
 use App\Http\Controllers\Customer\CheckoutController;
+use App\Http\Controllers\Customer\AccounController as profile;
 use App\Http\Controllers\Admin\CouponController;
 
 Route::prefix('/')->group(function () {
@@ -42,6 +43,10 @@ Route::prefix('/')->group(function () {
     Route::get('/product/{id}', [DetailProductController::class, 'index'])->name("product.detail");
     //checkout
     Route::middleware(['userVerified'])->get('checkout',[CheckoutController::class, 'index'])->name('checkout');
+    Route::middleware(['userVerified'])->post('payprocess',[CheckoutController::class, 'payment'])->name('pay');
+    
+    Route::middleware(['userVerified'])->get('thanksyou',[CheckoutController::class, 'thanksyou'])->name('thanksyou');
+
     //coupon
     Route::middleware(['userVerified'])->prefix('coupon')->group(function () {
         Route::get('',[CouponUser::class,'index'])->name("coupon");
@@ -54,6 +59,14 @@ Route::prefix('/')->group(function () {
     Route::get('about', function () {
         return view('customer.about.index');
     })->name('about');
+    // profile
+    Route::middleware(['userVerified'])->group(function () {
+        Route::get("profile",[profile::class, 'index'])->name('profile');
+        Route::post('cancelOrder',[profile::class,'cancel_order'])->name('order.cancel'); 
+        Route::post('confirmSuccess',[profile::class,'confirms_success'])->name('order.confirm');        
+
+    }) ;
+
     
     Route::prefix('auth')->group(function (){
         Route::get('/login',[AuthController::class,'ShowLogin'] )->name('ShowLogin');
