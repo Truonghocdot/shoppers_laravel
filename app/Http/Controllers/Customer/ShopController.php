@@ -16,7 +16,8 @@ class ShopController extends Controller
             $count = $item->product()->count(); // Get the count of products directly
             $item->count_product = $count; 
         }
-        return view("customer.products.index", compact('categories', 'products'));
+        $all = Products::all()->count();
+        return view("customer.products.index", compact('categories', 'products','all'));
     }
     
     public function fillter_category($title){

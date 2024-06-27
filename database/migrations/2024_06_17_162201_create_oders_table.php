@@ -15,11 +15,9 @@ return new class extends Migration
             $table->id();
             $table->integer('status')->default(0);
             $table->integer('uid');
-            $table->string("username",40);
             $table->string("address",150);
             $table->integer('userphone');
             $table->integer('total_money');
-
             $table->timestamps();
         });
     }

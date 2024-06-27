@@ -44,7 +44,11 @@
                                                     {{ $item->title }}
                                                 </h2>
                                             </td>
-                                            <td>${{ $item->price }}.00</td>
+                                            @if ($item->promotion_price > 0)
+                                                <td>${{ $item->promotion_price }}.00</td>
+                                            @else
+                                                <td>${{ $item->price }}.00</td>
+                                            @endif
                                             <td>
                                                 <div class="input-group mb-3" style="max-width: 120px;">
                                                     <div class="input-group-prepend">
@@ -62,7 +66,11 @@
                                                 </div>
                                             </td>
                                             <td>{{ $item->size }}</td>
-                                            <td>${{ $item->price * $item->count }}.00</td>
+                                            @if ($item->promotion_price > 0)
+                                                <td>${{ $item->promotion_price * $item->count }}.00</td>
+                                            @else
+                                                <td>${{ $item->price * $item->count }}.00</td>
+                                            @endif
                                             <td><a href="{{ route('cart.delete.item', ['id' => $item->id]) }}"
                                                     id="btn-delete"
                                                     onclick="return confirm('Do you really want to delete this item?')"

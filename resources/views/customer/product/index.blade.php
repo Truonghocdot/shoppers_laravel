@@ -21,7 +21,19 @@
                         facere, natus soluta dolores iusto! Molestiae expedita veritatis nesciunt doloremque sint asperiores
                         fuga voluptas, distinctio, aperiam, ratione dolore.</p>
                     <p class="mb-4">{{ $product->description }}</p>
-                    <p><strong class="text-primary h4">${{ $product->price }}.00</strong></p>
+                    @if ($product->promotion_price > 0)
+                        <div class="d-flex justify-content-around w-75">
+                            <div class="d-flex">Promotion Price: <strong
+                                    class="text-primary h4 ml-1">${{ $product->promotion_price }}.00</strong>
+                            </div>
+
+                            <div class="d-flex">Old Price: <strong class="text-primary h4 ml-1 "
+                                    style="text-decoration: line-through">${{ $product->price }}.00</strong></div>
+
+                        </div>
+                    @else
+                        <p><strong class="text-primary h4">${{ $product->price }}.00</strong></p>
+                    @endif
                     <div class="mb-1 d-flex">
                         @csrf
                         <input type="hidden" name="pro_id" value="{{ $product->id }}">

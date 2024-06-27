@@ -61,8 +61,8 @@ class CategoriesController extends Controller
     }
 
     public function searchProduct(Request $req){
-        $products = Categories::where('title','LIKE','%' . $req->title . '%')->get();
-        $products = $products->all();
+        $categories = Categories::where('title','LIKE','%' . $req->title . '%')->get();
+        $categories = $categories->all();
         $title = $req->title;
         return view("admin.category.index",compact('categories','title'));
     }

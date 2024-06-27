@@ -11,6 +11,8 @@ use App\Http\Controllers\Admin\AccountController;
 use App\Http\Controllers\Customer\DetailProductController;
 use App\Http\Controllers\Customer\CartController;
 use App\Http\Controllers\WishlistController;
+use App\Http\Controllers\Customer\CouponController as CouponUser ;
+use App\Http\Controllers\Customer\CheckoutController;
 use App\Http\Controllers\Admin\CouponController;
 
 Route::prefix('/')->group(function () {
@@ -18,7 +20,7 @@ Route::prefix('/')->group(function () {
     //cart
     Route::middleware(['userVerified'])->group(function () {
         Route::get("cart",[CartController::class,'index'])->name("cart.index");
-        Route::post("add-cartitem",[CartController::class,'addCartItem'])->name('cart.add.item');
+        Route::middleware(['addToCart'])->post("add-cartitem",[CartController::class,'addCartItem'])->name('cart.add.item');
         Route::post('update-cartitem',[CartController::class,'updateCart'])->name('cart.update.item');
         Route::get('delete-cart-item/{id}',[CartController::class,'deleteCartItem'])->name('cart.delete.item');
     });
@@ -38,9 +40,12 @@ Route::prefix('/')->group(function () {
     // detail product
     Route::get('/product/{id}', [DetailProductController::class, 'index'])->name("product.detail");
     //checkout
-    Route::get('checkout',function(){
-        return view('customer.checkout.index');
-    })->name('checkout');
+    Route::get('checkout',[CheckoutController::class, 'index'])->name('checkout');
+    //coupon
+    Route::middleware(['userVerified'])->prefix('coupon')->group(function () {
+        Route::get('',[CouponUser::class,'index'])->name("coupon");
+    });
+
     Route::get('contact', function () {
         return view('customer.contact.index');
     })->name("contact");
@@ -67,6 +72,8 @@ Route::prefix('/')->group(function () {
         Route::get("/editProduct/{id}",[ProductController::class,"ShowFormEditProduct"])->name("ShowFormEditProduct");
         Route::delete('product/{id}', [ProductController::class,"DeleteProduct"])->name("deleteProduct");
         Route::post("/updateProduct/{id}" , [ProductController::class,"UpdateProduct"])->name("updateProduct");
+        Route::post("/products/search" , [ProductController::class,"searchProduct"])->name("admin.product.search");
+
 
         //categories
         Route::get("/categories",[CategoriesController::class,"ShowCategories"])->name("ShowCategories");
@@ -75,6 +82,7 @@ Route::prefix('/')->group(function () {
         Route::get("/editCategory/{id}",[CategoriesController::class,"ShowFormEditCategory"])->name("ShowFormEditCategory");
         Route::delete('Category/{id}', [CategoriesController::class,"DeleteCategory"])->name("deleteCategory");
         Route::post("/updateCategory/{id}" , [CategoriesController::class,"UpdateCategory"])->name("updateCategory");
+        Route::get("/categories/search" , [CategoriesController::class,"searchProduct"])->name('admin.categories.search');
 
         //account
         Route::get("/account",[AccountController::class,'index'])->name("showAccount");

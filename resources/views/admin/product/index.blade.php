@@ -37,6 +37,7 @@
                                         <th>Image</th>
                                         <th>Count</th>
                                         <th>Created At</th>
+                                        <th>Promotion price</th>
                                         <th>Price</th>
                                         <th>Action</th>
                                     </tr>
@@ -59,6 +60,7 @@
                                                         alt=""></td>
                                                 <td>{{ $pro->count }}</td>
                                                 <td>{{ $pro->created_at }}</td>
+                                                <td>$ {{ $pro->promotion_price }}</td>
                                                 <td class="color-primary">$ {{ $pro->price }}</td>
                                                 <td>
                                                     <form action="{{ route('deleteProduct', ['id' => $pro->id]) }}"

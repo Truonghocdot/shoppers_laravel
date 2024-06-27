@@ -11,7 +11,7 @@ use App\Models\Categories ;
 class ProductController extends Controller
 {
     public function ShowProducts(){
-        $products = Products::join('categories','products.cat_id', '=','categories.id')->select('products.title','products.id','products.count','products.price','products.image','products.created_at','categories.title as cat_name')->get();
+        $products = Products::join('categories','products.cat_id', '=','categories.id')->select('products.title','products.id','products.promotion_price','products.count','products.price','products.image','products.created_at','categories.title as cat_name')->get();
         $products = $products->all();
         $title = '';
         return view("admin.product.index",compact('products','title'));
@@ -23,7 +23,7 @@ class ProductController extends Controller
             [
                 "categories"=> $categories
             ]
-    );
+        );
     }
 
     public function StoreNewProduct(NewProduct $request) {
@@ -42,7 +42,6 @@ class ProductController extends Controller
             "promotion_price"=>$request['promotion_price'],
             "image"=>$imageName
         ]);
-
         return redirect()->route("ShowProducts");
     }
 
@@ -58,7 +57,6 @@ class ProductController extends Controller
             "promotion_price" => $product['promotion_price'],
             "categories" => $categories
         ]);
-        
     }
     
     public function DeleteProduct( $id) {

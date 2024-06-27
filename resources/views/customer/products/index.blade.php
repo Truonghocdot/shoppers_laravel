@@ -53,12 +53,34 @@
                                                     src="{{ url('') }}/images/products/{{ $item->image }}"
                                                     alt="Image placeholder" class="img-fluid"></a>
                                         </figure>
+                                        @if ($item->promotion_price > 0)
+                                            <div class="box-sale position-absolute"
+                                                style="top: 0; background: red; padding: 8px 12px; color: #fff">
+                                                On Sale
+                                            </div>
+                                        @endif
                                         <div class="block-4-text p-4">
-                                            <h3><a
+                                            <h3>
+                                                <a
                                                     href="{{ route('product.detail', ['id' => $item->id]) }}">{{ $item->title }}</a>
                                             </h3>
                                             <p class="mb-0">{{ $item->description }}</p>
-                                            <p class="text-primary font-weight-bold">${{ $item->price }}</p>
+                                            @if ($item->promotion_price > 0)
+                                                <div class="d-flex justify-content-around ">
+                                                    <div class="d-flex">New price:
+                                                        <p class="pl-2 text-primary font-weight-bold">$
+                                                            {{ $item->promotion_price }}
+                                                        </p>
+                                                    </div>
+                                                    <div class="d-flex">
+                                                        <p class="text-primary font-weight-bold"
+                                                            style="text-decoration: line-through ">$ {{ $item->price }}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            @else
+                                                <p class="text-primary font-weight-bold">Price: ${{ $item->price }}</p>
+                                            @endif
                                             <form action="{{ route('wishlist.new') }}"
                                                 class="d-flex justify-content-between" method="POST">
                                                 @method('PATCH')
@@ -88,9 +110,11 @@
                         <ul class="list-unstyled mb-0">
                             @foreach ($categories as $item)
                                 <li class="mb-1"><a href="{{ route('shop.category', ['title' => $item->title]) }}"
-                                        class="d-flex"><span>{{ $item->title }}</span> <span
-                                            class="text-black ml-auto">({{ $item->count_product }})</span></a></li>
+                                        class="d-flex"><span style="text-transform: capitalize">{{ $item->title }}</span>
+                                        <span class="text-black ml-auto">({{ $item->count_product }})</span></a></li>
                             @endforeach
+                            <li class="mb-1"><a href="{{ route('shop') }}" class="d-flex"><span>All</span> <span
+                                        class="text-black ml-auto">({{ $all }})</span></a></li>
                         </ul>
                     </div>
 
@@ -132,7 +156,8 @@
 
                             @if (count($categories) > 0)
                                 @foreach ($categories as $item)
-                                    <div class="col-sm-6 col-md-6 col-lg-4 mb-4 mb-lg-0" data-aos="fade" data-aos-delay="">
+                                    <div class="col-sm-6 col-md-6 col-lg-4 mb-4 mb-lg-0" data-aos="fade"
+                                        data-aos-delay="">
                                         <a class="block-2-item"
                                             href="{{ route('shop.category', ['title' => $item->title]) }}">
                                             <figure class="image">

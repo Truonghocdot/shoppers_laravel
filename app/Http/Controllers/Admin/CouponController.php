@@ -19,7 +19,8 @@ class CouponController extends Controller
             'content' => $req->content,
             'value' => $req->percent,
             'role' => 0,
-            'count' => $req->count
+            'count' => $req->count,
+            'code' => rand(100000,999999)
         ]);
 
         return redirect()->route('admin.coupon');
@@ -30,7 +31,8 @@ class CouponController extends Controller
             'content' => $req->content,
             'value' => $req->percent,
             'role' => 1,
-            'count' => $req->count
+            'count' => $req->count,
+            'code' => rand(100000,999999)
         ]);
 
         return redirect()->route('admin.coupon');

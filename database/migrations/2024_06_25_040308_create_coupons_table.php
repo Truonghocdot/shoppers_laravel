@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('role')->default(0);
             $table->string("thumbnail",20)->default("coupon.png") ;
             $table->integer("count");
+            $table->string('code',20);
             $table->timestamps();
         });
     }

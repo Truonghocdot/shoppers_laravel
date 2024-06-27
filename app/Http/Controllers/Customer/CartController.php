@@ -15,10 +15,13 @@ class CartController extends Controller
     public function index(){
         $id = Auth::user()->id ;
         $cart_id = User::find($id)->cart()->first()->id ;
-        $cart_items = CartItems::join('products','cart_items.pro_id','=','products.id')->select('products.title','cart_items.id','products.price','cart_items.count','products.image','cart_items.size')->get();
-        $total_price = 0;
-        foreach($cart_items as $item){
-            $total_price =$total_price + $item->price * $item->count;
+        $cart_items = CartItems::join('products','cart_items.pro_id','=','products.id')->select('products.title','products.promotion_price','cart_items.id','products.price','cart_items.count','products.image','cart_items.size')->get();
+        $total_price = 0;        foreach($cart_items as $item){
+            if($item->promotion_price >0){
+                $total_price =$total_price + $item->promotion_price * $item->count;
+            }else{
+                $total_price =$total_price + $item->price * $item->count;
+            }
         }
         return view('customer.cart.index',['cart_items' => $cart_items,'total' => $total_price]);
     }

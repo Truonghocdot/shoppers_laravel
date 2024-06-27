@@ -21,6 +21,7 @@
                                             <h6>Value: {{ $item->value }}%</h6>
                                             <h6>Count: {{ $item->count }}</h6>
                                         </div>
+                                        <h6>Code: <strong>{{ $item->code }}</strong></h6>
                                     </div>
                                     <div class="card-footer">
                                         <p class="card-text d-inline">
@@ -80,6 +81,7 @@
                                             <h6>Value: {{ $item->value }}%</h6>
                                             <h6>Count: {{ $item->count }}</h6>
                                         </div>
+                                        <h6>Code: <strong>{{ $item->code }}</strong></h6>
                                     </div>
                                     <div class="card-footer">
                                         <p class="card-text d-inline">

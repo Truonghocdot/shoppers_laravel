@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Symfony\Component\HttpFoundation\Response;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,4 +17,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::get('/time-left',function () {
+    $time = 'Time left: ' . (23 - date("H")) . 'h-'. (59 - date("i")) . 'm-' . (59 - date('s')) .'s';
+    return response($time,200);
 });

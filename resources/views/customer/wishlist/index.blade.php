@@ -39,7 +39,11 @@
                                                     {{ $item->title }}
                                                 </h2>
                                             </td>
-                                            <td>${{ $item->price }}.00</td>
+                                            @if ($item->promotion_price > 0)
+                                                <td>${{ $item->promotion_price }}.00</td>
+                                            @else
+                                                <td>${{ $item->price }}.00</td>
+                                            @endif
                                             <td>
                                                 <button type="button" class="btn btn-primary" data-toggle="modal"
                                                     data-target="#exampleModal" data-whatever="@mdo">Add To Cart
