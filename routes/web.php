@@ -15,6 +15,7 @@ use App\Http\Controllers\Customer\CouponController as CouponUser ;
 use App\Http\Controllers\Customer\CheckoutController;
 use App\Http\Controllers\Customer\AccounController as profile;
 use App\Http\Controllers\Admin\CouponController;
+use App\Http\Controllers\OrderController ;
 
 Route::prefix('/')->group(function () {
     Route::get('', [HomeController::class,"index"])->name("home");
@@ -64,10 +65,8 @@ Route::prefix('/')->group(function () {
         Route::get("profile",[profile::class, 'index'])->name('profile');
         Route::post('cancelOrder',[profile::class,'cancel_order'])->name('order.cancel'); 
         Route::post('confirmSuccess',[profile::class,'confirms_success'])->name('order.confirm');        
-
     }) ;
 
-    
     Route::prefix('auth')->group(function (){
         Route::get('/login',[AuthController::class,'ShowLogin'] )->name('ShowLogin');
         Route::get('/register',[AuthController::class,'ShowRegister'] )->name('ShowRegister'); 
@@ -110,7 +109,10 @@ Route::prefix('/')->group(function () {
         Route::get("/coupon/delete/{id}",[CouponController::class,'deleteCoupon'])->name('admin.coupon.delete');
         Route::post('/coupon/newdaily',[CouponController::class,'addNewDaily'])->name('admin.coupon.newdaily');
         Route::post('/coupon/newByuser',[CouponController::class,'addNewByUser'])->name('admin.coupon.byuser');
-
+        //order 
+        Route::get("/order",[OrderController::class,'index'])->name('admin.order');
+        Route::get("/order/{id}",[OrderController::class,'detail'])->name("admin.order.detail");
+        Route::get("/order/confirm/{id}",[OrderController::class,'confirm'])->name("admin.order.confirm");
     });
 
 });

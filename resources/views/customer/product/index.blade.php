@@ -8,7 +8,6 @@
             </div>
         </div>
     </div>
-
     <div class="site-section">
         <div class="container">
             <div class="row">
@@ -26,10 +25,8 @@
                             <div class="d-flex">Promotion Price: <strong
                                     class="text-primary h4 ml-1">${{ $product->promotion_price }}.00</strong>
                             </div>
-
                             <div class="d-flex">Old Price: <strong class="text-primary h4 ml-1 "
                                     style="text-decoration: line-through">${{ $product->price }}.00</strong></div>
-
                         </div>
                     @else
                         <p><strong class="text-primary h4">${{ $product->price }}.00</strong></p>
@@ -79,7 +76,6 @@
             </div>
         </div>
     </div>
-
     <div class="site-section block-3 site-blocks-2 bg-light">
         <div class="container">
             <div class="row justify-content-center">

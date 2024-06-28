@@ -152,12 +152,15 @@
                                                             onclick="return confirm('If you cancel this order, coupon in this order will be disable and not return coupon, are you sure?')"
                                                             class="btn btn-danger">Cancel Order</button>
                                                     </form>
-                                                @else
+                                                @elseif($item->status == 2)
                                                     <form action="{{ route('order.confirm') }}" method="POST">
                                                         @csrf
                                                         <input type="hidden" name="order_id" value="{{ $item->id }}">
                                                         <button class="btn btn-primary">Confirm Completed Order!</button>
                                                     </form>
+                                                @elseif($item->status == 3)
+                                                    <a href="{{ route('shop') }}" class="btn btn-primary">Continue
+                                                        shop!</a>
                                                 @endif
                                             </div>
                                         </table>

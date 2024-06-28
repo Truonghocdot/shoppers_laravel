@@ -66,7 +66,7 @@
                                 </figure>
                                 <div class="text">
                                     <span class="text-uppercase">Collections</span>
-                                    <h3>{{ $item->title }}</h3>
+                                    <h3 class="text-capitalize">{{ $item->title }}</h3>
                                 </div>
                             </a>
                         </div>
@@ -151,6 +151,10 @@
                                                 <img src="images/products/{{ $item->image }}" alt="Image placeholder"
                                                     class="img-fluid">
                                             </figure>
+                                            <div class="box-sale position-absolute"
+                                                style="top: 0; background: red; padding: 8px 12px; color: #fff">
+                                                On Sale
+                                            </div>
                                             <div class="block-4-text p-4">
                                                 <h3><a href="#">{{ $item->title }}</a></h3>
                                                 <p class="mb-0">{{ $item->description }}</p>

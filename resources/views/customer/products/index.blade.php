@@ -166,7 +166,7 @@
                                             </figure>
                                             <div class="text">
                                                 <span class="text-uppercase">Collections</span>
-                                                <h3>{{ $item->title }}</h3>
+                                                <h3 class="text-capitalize">{{ $item->title }}</h3>
                                             </div>
                                         </a>
                                     </div>

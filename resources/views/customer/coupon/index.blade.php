@@ -13,46 +13,6 @@
             <h1 style="text-align: center;">This coupon was created for grateful my customer.</h1>
         </div>
         <div class="container">
-            <div class="row mb-3">
-                <form class="col-md-12" name="change-cart" action="{{ route('cart.update.item') }}" method="POST">
-                    @csrf
-                    <div class="site-blocks-table">
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th class="product-price">Title</th>
-                                    <th class="product-price">Value</th>
-                                    <th class="product-quantity">Count</th>
-                                    <th class="product-price">Code</th>
-
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @if (count($byUser) > 0)
-                                    @foreach ($byUser as $item)
-                                        <tr>
-                                            <td class="product-name  d-flex align-items-center">
-                                                <img src="images/coupon.png" alt="Image" class="img-fluid w-25">
-                                                <h2 class="h5 text-black" style="line-height: 50%">
-                                                    {{ $item->content }}
-                                                </h2>
-                                            </td>
-                                            <td>{{ $item->value }}%</td>
-                                            <td>{{ $item->count }}</td>
-                                            <td>
-                                                <strong
-                                                    style="font-size: 24px; color: cadetblue">{{ $item->code }}</strong>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                @else
-                                    <h2>Have not any coupon at present!</h2>
-                                @endif
-                            </tbody>
-                        </table>
-                    </div>
-                </form>
-            </div>
             <div class="row mb-5">
                 <h3>This coupon will be open in 5 minutes after 00:AM.
                     <br>
@@ -99,6 +59,46 @@
                     </div>
                 </form>
             </div>
+            <div class="row mb-3">
+                <form class="col-md-12" name="change-cart" action="{{ route('cart.update.item') }}" method="POST">
+                    @csrf
+                    <div class="site-blocks-table">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th class="product-price">Title</th>
+                                    <th class="product-price">Value</th>
+                                    <th class="product-quantity">Count</th>
+                                    <th class="product-price">Code</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (count($byUser) > 0)
+                                    @foreach ($byUser as $item)
+                                        <tr>
+                                            <td class="product-name  d-flex align-items-center">
+                                                <img src="images/coupon.png" alt="Image" class="img-fluid w-25">
+                                                <h2 class="h5 text-black" style="line-height: 50%">
+                                                    {{ $item->content }}
+                                                </h2>
+                                            </td>
+                                            <td>{{ $item->value }}%</td>
+                                            <td>{{ $item->count }}</td>
+                                            <td>
+                                                <strong
+                                                    style="font-size: 24px; color: cadetblue">{{ $item->code }}</strong>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @else
+                                    <h2>Have not any coupon at present!</h2>
+                                @endif
+                            </tbody>
+                        </table>
+                    </div>
+                </form>
+            </div>
+
 
             <div class="row">
                 <div class="col-md-6">

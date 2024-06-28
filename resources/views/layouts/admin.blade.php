@@ -141,6 +141,7 @@
                             <i class="fa-solid fa-truck"></i><span class="nav-text">Orders Detail</span>
                         </a>
                         <ul aria-expanded="false">
+                            <li><a href="{{ route('admin.order') }}">Order </a></li>
                         </ul>
                     </li>
                     <li>

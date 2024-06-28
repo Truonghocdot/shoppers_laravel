@@ -164,10 +164,25 @@
                                         <th>Total</th>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>Top Up T-Shirt <strong class="mx-2">x</strong> 1</td>
-                                            <td>$250.00</td>
-                                        </tr>
+                                        @if (count($cart_item) > 0)
+                                            @foreach ($cart_item as $item)
+                                                <tr>
+                                                    <td>{{ $item->title }} <strong
+                                                            class="mx-2">{{ $item->size }}</strong>
+                                                        {{ $item->count }}
+                                                    </td>
+                                                    <td>
+                                                        @if ($item->promotion_price > 0)
+                                                            {{ $item->promotion_price }}
+                                                        @else
+                                                            {{ $item->price }}
+                                                        @endif
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        @else
+                                            <p class="text-black"></p>
+                                        @endif
                                     </tbody>
                                     @if (count($coupon) > 0)
                                         <thead>
@@ -227,6 +242,9 @@
                                         </div>
                                     </div>
                                 </div>
+                                @error('invalid')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                                 @csrf
                                 <div class="form-group">
                                     <button class="btn btn-primary btn-lg py-3 btn-block" type="submit">Place

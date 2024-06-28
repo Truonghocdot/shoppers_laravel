@@ -117,10 +117,10 @@
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-secondary"
-                                                                    data-dismiss="modal">Close</button>
+                                                                    data-dismiss="modal">Cancel</button>
                                                                 <button type="button" type="submit"
-                                                                    id="btn-update-cart" class="btn btn-primary">Send
-                                                                    message</button>
+                                                                    id="btn-update-cart"
+                                                                    class="btn btn-primary">OK</button>
                                                             </div>
                                                         </div>
                                                     </div>
