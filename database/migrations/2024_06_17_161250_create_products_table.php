@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('title',150);
             $table->text('description');
             $table->integer('cat_id');
+            $table->integer("type_id");
             $table->integer("count");
             $table->text("image");
             $table->integer("promotion_price")->default(0);

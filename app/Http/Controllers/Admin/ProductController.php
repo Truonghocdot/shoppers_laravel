@@ -6,17 +6,19 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Products ;
 use App\Http\Requests\Product\NewProduct;
+use App\Models\TypeProduct ;
 use App\Models\Categories ;
 
 class ProductController extends Controller
 {
     public function ShowProducts(){
-        $products = Products::join('categories','products.cat_id', '=','categories.id')->select('products.title','products.id','products.promotion_price','products.count','products.price','products.image','products.created_at','categories.title as cat_name')->get();
+        $products = Products::join('categories','products.cat_id', '=','categories.id')
+        ->select('products.title','products.id','products.promotion_price','products.count','products.price','products.image','products.created_at','categories.title as cat_name')->get();
         $products = $products->all();
         $title = '';
-        return view("admin.product.index",compact('products','title'));
+        $type = TypeProduct::all();
+        return view("admin.product.index",compact('products','title','type'));
     }
-
     public function ShowFormAddProduct()  {
         $categories = Categories::get();
         return view('admin.product.create',
@@ -38,6 +40,7 @@ class ProductController extends Controller
             "description"=>$request['description'],
             "count"=>$request['count'],
             "price"=>$request['price'],
+            'type_id'=> $request['type'],
             'cat_id'=>$request['category'],
             "promotion_price"=>$request['promotion_price'],
             "image"=>$imageName

@@ -98,7 +98,7 @@
                                     </div>
                                 </div>
                             @endforeach
-                        @else
+                            @else
                             <h2>Empty data</h2>
                         @endif
                     </div>
@@ -117,7 +117,18 @@
                                         class="text-black ml-auto">({{ $all }})</span></a></li>
                         </ul>
                     </div>
-
+                    <div class="border p-4 rounded mb-4">
+                        <h3 class="mb-3 h6 text-uppercase text-black d-block">Type</h3>
+                        <ul class="list-unstyled mb-0">
+                            @foreach ($categories as $item)
+                                <li class="mb-1"><a href="{{ route('shop.category', ['title' => $item->title]) }}"
+                                        class="d-flex"><span style="text-transform: capitalize">{{ $item->title }}</span>
+                                        <span class="text-black ml-auto">({{ $item->count_product }})</span></a></li>
+                            @endforeach
+                            <li class="mb-1"><a href="{{ route('shop') }}" class="d-flex"><span>All</span> <span
+                                        class="text-black ml-auto">({{ $all }})</span></a></li>
+                        </ul>
+                    </div>
                     <div class="border p-4 rounded mb-4">
                         <div class="mb-4">
                             <form action="{{ route('shop.price.range') }}">
@@ -129,7 +140,6 @@
                             </form>
                         </div>
                     </div>
-
                     <div class="border p-4 rounded mb-4">
                         <div class="mb-4">
                             <form action="{{ route('shop.search.name') }}" method="POST">
@@ -143,7 +153,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="row">
                 <div class="col-md-12">
                     <div class="site-section site-blocks-2">
@@ -153,7 +162,6 @@
                             </div>
                         </div>
                         <div class="row">
-
                             @if (count($categories) > 0)
                                 @foreach ($categories as $item)
                                     <div class="col-sm-6 col-md-6 col-lg-4 mb-4 mb-lg-0" data-aos="fade"
@@ -172,6 +180,7 @@
                                     </div>
                                 @endforeach
                             @else
+                            <h2>Empty Data.</h2>
                             @endif
                         </div>
                     </div>

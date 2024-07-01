@@ -15,6 +15,7 @@ use App\Http\Controllers\Customer\CouponController as CouponUser ;
 use App\Http\Controllers\Customer\CheckoutController;
 use App\Http\Controllers\Customer\AccounController as profile;
 use App\Http\Controllers\Admin\CouponController;
+use App\Http\Controllers\Admin\TypeController ;
 use App\Http\Controllers\OrderController ;
 
 Route::prefix('/')->group(function () {
@@ -36,6 +37,8 @@ Route::prefix('/')->group(function () {
     // shop
     Route::get('shop',[ShopController::class,'index'])->name("shop");
     Route::get("/shop/{title}",[ShopController::class,"fillter_category"])->name("shop.category");
+    Route::get("/shop/{title}",[ShopController::class,"fillter_type"])->name("shop.type");
+
     Route::get("/shop/fillter/price/{type}",[ShopController::class,"fillter_price"])->name('shop.fillter.price');
     Route::get("/shop/fillter/name/{type}",[ShopController::class,"fillter_name"])->name("shop.fillter.name");
     Route::get("/shop/price/range",[ShopController::class,'fillter_range_price'])->name("shop.price.range");
@@ -45,7 +48,6 @@ Route::prefix('/')->group(function () {
     //checkout
     Route::middleware(['userVerified'])->get('checkout',[CheckoutController::class, 'index'])->name('checkout');
     Route::middleware(['userVerified'])->post('payprocess',[CheckoutController::class, 'payment'])->name('pay');
-    
     Route::middleware(['userVerified'])->get('thanksyou',[CheckoutController::class, 'thanksyou'])->name('thanksyou');
 
     //coupon
@@ -96,6 +98,15 @@ Route::prefix('/')->group(function () {
         Route::delete('Category/{id}', [CategoriesController::class,"DeleteCategory"])->name("deleteCategory");
         Route::post("/updateCategory/{id}" , [CategoriesController::class,"UpdateCategory"])->name("updateCategory");
         Route::get("/categories/search" , [CategoriesController::class,"searchProduct"])->name('admin.categories.search');
+
+        //type
+        Route::get("/type",[TypeController::class,"show_type"])->name("type.show");
+        Route::get("/type/add",[TypeController::class,"show_add_type"])->name("type.show.formadd");
+        Route::post("/type/create",[TypeController::class,"store_new_type"])->name("type.create");
+        Route::get("/type/edit/{id}",[TypeController::class,"show_form_edit_type"])->name("type.show.formedit");
+        Route::delete('/type/{id}', [TypeController::class,"delete_type"])->name("type.delete");
+        Route::post("/type/store{id}" , [TypeController::class,"update_type"])->name("type.update");
+        Route::get("/type/search" , [TypeController::class,"search_type"])->name('admin.type.search');
 
         //account
         Route::get("/account",[AccountController::class,'index'])->name("showAccount");

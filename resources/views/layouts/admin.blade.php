@@ -170,6 +170,15 @@
                     </li>
                     <li>
                         <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-layers menu-icon"></i><span class="nav-text">Type Product</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="{{ route('type.show') }}">Type Product</a></li>
+                            <li><a href="{{ route('type.show.formadd') }}">Add type product</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
                             <i class="fa fa-shopping-cart"></i><span class="nav-text">Products</span>
                         </a>
                         <ul aria-expanded="false">

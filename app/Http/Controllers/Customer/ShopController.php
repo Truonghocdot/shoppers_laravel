@@ -37,6 +37,23 @@ class ShopController extends Controller
         return view("customer.products.index", compact('categories', 'products'));
     }
 
+    public function fillter_type($title){
+        $categories = Categories::all();
+        $cat_id = 0 ;
+        foreach($categories as $item){        
+            if($item->title == $title){
+                global $cat_id;
+                $cat_id = $item->id;
+            }
+        }
+        $products = Products::where("type_id",$cat_id)->get();
+        foreach ($categories as $item) {
+            $count = $item->product()->count(); // Get the count of products directly
+            $item->count_product = $count; 
+        }
+        return view("customer.products.index", compact('categories', 'products'));
+    }
+
     public function fillter_price($type){
         $categories = Categories::all();
         $products = Products::orderBy('price',$type)->get();
