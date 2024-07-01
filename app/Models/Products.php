@@ -13,7 +13,7 @@ class Products extends Model
     public function category(){
         return $this->beLongsTo(Categories::class,'cat_id');
     }   
-    protected $fillable = ['title', 'description', 'image','price','cat_id','count','promotion_price'];
+    protected $fillable = ['title', 'description', 'image','price','cat_id','count','promotion_price','type_id'];
     public $timestamps = true;
     
 }

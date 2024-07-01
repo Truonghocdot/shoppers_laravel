@@ -63,6 +63,14 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
+                                    <label for="">Type Product: </label>
+                                    <select name="type" class="form-control">
+                                        @foreach ($type as $item)
+                                            <option value="{{ $item->id }}">{{ $item->title }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
                                     <input type="number" value="{{ $count }}" class="form-control" name="count"
                                         placeholder="Count ">
                                 </div>

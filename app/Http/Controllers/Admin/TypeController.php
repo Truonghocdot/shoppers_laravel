@@ -17,7 +17,6 @@ class TypeController extends Controller
             $date = new DateTime($item->created_at);
             $item->created_at = $date->format('Y-m-d H:i:s'); 
         }
-        
         return view("admin.type.index",compact("TypeProduct",'title'));
     }
 

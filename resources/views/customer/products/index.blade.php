@@ -18,7 +18,7 @@
                     <div class="row">
                         <div class="col-md-12 mb-5">
                             <div class="float-md-left mb-4">
-                                <h2 class="text-black h5">Shop All</h2>
+                                <h2 class="text-black h5"><a href="">Shop All</a></h2>
                             </div>
                             <div class="d-flex">
                                 <div class="dropdown mr-1 ml-md-auto">
@@ -27,16 +27,14 @@
                                     <button type="button" class="btn btn-secondary btn-sm dropdown-toggle"
                                         id="dropdownMenuReference" data-toggle="dropdown">Reference</button>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
-                                        <a class="dropdown-item"
-                                            href="{{ route('shop.fillter.name', ['type' => 'ASC']) }}">Name, A to Z</a>
-                                        <a class="dropdown-item"
-                                            href="{{ route('shop.fillter.name', ['type' => 'DESC']) }}">Name, Z to A</a>
+                                        <a class="dropdown-item" href="{{ route('shop.search') }}?arrange=ASC">Name,
+                                            A to Z</a>
+                                        <a class="dropdown-item" href="{{ route('shop.search') }}?arrange=DESC">Name,
+                                            Z to A</a>
                                         <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item"
-                                            href="{{ route('shop.fillter.price', ['type' => 'ASC']) }}">Price, low to
+                                        <a class="dropdown-item" href="{{ route('shop.search') }}?price=ASC">Price, low to
                                             high</a>
-                                        <a class="dropdown-item"
-                                            href="{{ route('shop.fillter.price', ['type' => 'DESC']) }}">Price, high to
+                                        <a class="dropdown-item" href="{{ route('shop.search') }}?price=DESC">Price, high to
                                             low</a>
                                     </div>
                                 </div>
@@ -98,7 +96,7 @@
                                     </div>
                                 </div>
                             @endforeach
-                            @else
+                        @else
                             <h2>Empty data</h2>
                         @endif
                     </div>
@@ -109,32 +107,29 @@
                         <h3 class="mb-3 h6 text-uppercase text-black d-block">Categories</h3>
                         <ul class="list-unstyled mb-0">
                             @foreach ($categories as $item)
-                                <li class="mb-1"><a href="{{ route('shop.category', ['title' => $item->title]) }}"
-                                        class="d-flex"><span style="text-transform: capitalize">{{ $item->title }}</span>
+                                <li class="mb-1"><a href="" class="d-flex"><span
+                                            style="text-transform: capitalize">{{ $item->title }}</span>
                                         <span class="text-black ml-auto">({{ $item->count_product }})</span></a></li>
                             @endforeach
-                            <li class="mb-1"><a href="{{ route('shop') }}" class="d-flex"><span>All</span> <span
-                                        class="text-black ml-auto">({{ $all }})</span></a></li>
                         </ul>
                     </div>
                     <div class="border p-4 rounded mb-4">
                         <h3 class="mb-3 h6 text-uppercase text-black d-block">Type</h3>
                         <ul class="list-unstyled mb-0">
-                            @foreach ($categories as $item)
-                                <li class="mb-1"><a href="{{ route('shop.category', ['title' => $item->title]) }}"
+                            @foreach ($type as $item)
+                                <li class="mb-1"><a href="{{ route('shop.search') }}?type={{ $item->title }}"
                                         class="d-flex"><span style="text-transform: capitalize">{{ $item->title }}</span>
                                         <span class="text-black ml-auto">({{ $item->count_product }})</span></a></li>
                             @endforeach
-                            <li class="mb-1"><a href="{{ route('shop') }}" class="d-flex"><span>All</span> <span
-                                        class="text-black ml-auto">({{ $all }})</span></a></li>
                         </ul>
                     </div>
                     <div class="border p-4 rounded mb-4">
                         <div class="mb-4">
-                            <form action="{{ route('shop.price.range') }}">
+                            <form action="{{ route('shop.search') }}" method="GET">
+                                @csrf
                                 <h3 class="mb-3 h6 text-uppercase text-black d-block">Filter by Price</h3>
                                 <div id="slider-range" class="border-primary"></div>
-                                <input type="text" name="text" id="amount"
+                                <input type="text" name="arrange_price" id="amount"
                                     class="form-control border-0 pl-0 bg-white" />
                                 <button type="submit" class="btn btn-primary">Search</button>
                             </form>
@@ -142,7 +137,7 @@
                     </div>
                     <div class="border p-4 rounded mb-4">
                         <div class="mb-4">
-                            <form action="{{ route('shop.search.name') }}" method="POST">
+                            <form action="" method="GET">
                                 @csrf
                                 <h3 class="mb-3 h6 text-uppercase text-black d-block">Search by Name</h3>
                                 <div id="slider-range" class="border-primary"></div>
@@ -166,8 +161,7 @@
                                 @foreach ($categories as $item)
                                     <div class="col-sm-6 col-md-6 col-lg-4 mb-4 mb-lg-0" data-aos="fade"
                                         data-aos-delay="">
-                                        <a class="block-2-item"
-                                            href="{{ route('shop.category', ['title' => $item->title]) }}">
+                                        <a class="block-2-item" href="">
                                             <figure class="image">
                                                 <img src="{{ url('') }}/images/categories/{{ $item->thumbnail }}"
                                                     alt="" class="img-fluid">
@@ -180,7 +174,7 @@
                                     </div>
                                 @endforeach
                             @else
-                            <h2>Empty Data.</h2>
+                                <h2>Empty Data.</h2>
                             @endif
                         </div>
                     </div>

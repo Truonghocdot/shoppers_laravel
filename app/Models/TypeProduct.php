@@ -13,6 +13,6 @@ class TypeProduct extends Model
     use HasFactory;
     protected $fillable = ['title', 'thumbnail'];
     public function product(){
-        return $this->hasMany(Products::class,"cat_id","id");
+        return $this->hasMany(Products::class,"type_id","id");
     }
 }

@@ -36,13 +36,7 @@ Route::prefix('/')->group(function () {
     });
     // shop
     Route::get('shop',[ShopController::class,'index'])->name("shop");
-    Route::get("/shop/{title}",[ShopController::class,"fillter_category"])->name("shop.category");
-    Route::get("/shop/{title}",[ShopController::class,"fillter_type"])->name("shop.type");
-
-    Route::get("/shop/fillter/price/{type}",[ShopController::class,"fillter_price"])->name('shop.fillter.price');
-    Route::get("/shop/fillter/name/{type}",[ShopController::class,"fillter_name"])->name("shop.fillter.name");
-    Route::get("/shop/price/range",[ShopController::class,'fillter_range_price'])->name("shop.price.range");
-    Route::post('/shop/search',[ShopController::class,'search_by_name'])->name('shop.search.name');
+    Route::get("/shop/search",[ShopController::class,'search_shop'])->name('shop.search');
     // detail product
     Route::get('/product/{id}', [DetailProductController::class, 'index'])->name("product.detail");
     //checkout

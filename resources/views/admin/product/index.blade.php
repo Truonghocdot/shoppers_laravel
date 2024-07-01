@@ -34,6 +34,7 @@
                                         <th>Title</th>
                                         <th>Status</th>
                                         <th>Category</th>
+                                        <th>Type</th>
                                         <th>Image</th>
                                         <th>Count</th>
                                         <th>Created At</th>
@@ -55,6 +56,13 @@
                                                     <span class="badge badge-success px-2">Extended</span>
                                                 </td>
                                                 <td>{{ $pro->cat_name }}</td>
+                                                <td>
+                                                    @foreach ($type as $ty)
+                                                        @if ($ty->id == $pro->type_id)
+                                                            {{ $ty->title }}
+                                                        @endif
+                                                    @endforeach
+                                                </td>
                                                 <td><img style="width: 280px"
                                                         src="{{ url('') }}/images/products/{{ $pro->image }}"
                                                         alt=""></td>

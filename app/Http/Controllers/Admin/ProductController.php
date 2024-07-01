@@ -13,17 +13,20 @@ class ProductController extends Controller
 {
     public function ShowProducts(){
         $products = Products::join('categories','products.cat_id', '=','categories.id')
-        ->select('products.title','products.id','products.promotion_price','products.count','products.price','products.image','products.created_at','categories.title as cat_name')->get();
+        ->select('products.title','products.id','products.promotion_price','products.count','products.price','products.image','products.created_at','categories.title as cat_name','products.type_id')->get();
         $products = $products->all();
         $title = '';
         $type = TypeProduct::all();
         return view("admin.product.index",compact('products','title','type'));
     }
+
     public function ShowFormAddProduct()  {
         $categories = Categories::get();
+        $type = TypeProduct::all();
         return view('admin.product.create',
             [
-                "categories"=> $categories
+                "categories"=> $categories,
+                "type" => $type
             ]
         );
     }
@@ -51,6 +54,8 @@ class ProductController extends Controller
     public function ShowFormEditProduct($id) {
         $categories = Categories::get();
         $product = Products::find($id)->toArray();
+        $type = TypeProduct::all();
+
         return view('admin.product.edit',[
             "id" => $product['id'],
             "price" => $product['price'],
@@ -58,10 +63,11 @@ class ProductController extends Controller
             "description" => $product['description'],
             "count" => $product['count'],
             "promotion_price" => $product['promotion_price'],
-            "categories" => $categories
+            "categories" => $categories,
+            'type' => $type
         ]);
     }
-    
+
     public function DeleteProduct( $id) {
         $result = Products::find($id)->delete();
         return redirect()->back();
@@ -70,7 +76,6 @@ class ProductController extends Controller
     public function UpdateProduct(NewProduct $request ,$id){
         $request->validated();
         $request = $request->toArray();
-        $categories = Categories::get();
         $targetPath = public_path('images/products');
         $image = explode('.',$request['image']->getClientOriginalName());
         $imageName = md5(time() . $image[0]) . '.' . $image[1];
@@ -81,6 +86,7 @@ class ProductController extends Controller
             "count"=>$request['count'],
             "price"=>$request['price'],
             'cat_id'=>$request['category'],
+            'type_id' => $request['type'],
             "promotion_price"=>$request['promotion_price'],
             "image"=>$imageName
         ]);
@@ -93,4 +99,5 @@ class ProductController extends Controller
         $title = $req->title;
         return view("admin.product.index",compact('products','title'));
     }
+
 }
