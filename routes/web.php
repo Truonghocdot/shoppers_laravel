@@ -28,7 +28,9 @@ Route::prefix('/')->group(function () {
         Route::get('delete-cart-item/{id}',[CartController::class,'deleteCartItem'])->name('cart.delete.item');
         Route::post("addcoupon",[CartController::class,'add_coupon'])->name("cart.add.coupon");
     });
-    //wishlist
+    Route::get("mail",function(){
+        return view('customer.mail');
+    });
     Route::middleware(['userVerified'])->prefix('wishlist')->group(function () {
        Route::get("",[WishlistController::class, 'index'])->name('wishlist');
        Route::patch("/add",[WishlistController::class, 'add_new'])->name('wishlist.new');

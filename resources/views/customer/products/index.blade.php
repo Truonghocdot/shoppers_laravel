@@ -107,8 +107,8 @@
                         <h3 class="mb-3 h6 text-uppercase text-black d-block">Categories</h3>
                         <ul class="list-unstyled mb-0">
                             @foreach ($categories as $item)
-                                <li class="mb-1"><a href="" class="d-flex"><span
-                                            style="text-transform: capitalize">{{ $item->title }}</span>
+                                <li class="mb-1"><a href="{{ route('shop.search') }}?categories={{ $item->title }}"
+                                        class="d-flex"><span style="text-transform: capitalize">{{ $item->title }}</span>
                                         <span class="text-black ml-auto">({{ $item->count_product }})</span></a></li>
                             @endforeach
                         </ul>

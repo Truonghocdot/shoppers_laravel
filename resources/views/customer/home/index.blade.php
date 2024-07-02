@@ -60,7 +60,7 @@
                     @foreach ($categories as $item)
                         <div class="col-sm-6 col-md-6 col-lg-4 mb-4 mb-lg-0" data-aos="fade" data-aos-delay="">
                             <a class="block-2-item" style="cursor: pointer;"
-                                href="{{ route('shop.category', ['title' => $item->title]) }}">
+                                href="{{ route('shop.search') }}?categories={{ $item->title }}">
                                 <figure class="image">
                                     <img src="/images/categories/{{ $item->thumbnail }}" alt="" class="img-fluid">
                                 </figure>
@@ -190,7 +190,7 @@
                                 </div>
                             @endforeach
                         @else
-                            <h2>Empty data</h2>
+                            <h2>No products on sale currently. Please check back later!</h2>
                         @endif
                     </div>
                 </div>

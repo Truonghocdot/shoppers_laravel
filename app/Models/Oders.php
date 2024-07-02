@@ -13,4 +13,8 @@ class Oders extends Model
     public function detail(){
         return $this->hasMany(OderDetail::class ,'order_id','id');
     }
+    
+    public function user(){
+        return $this->belongsTo(User::class,'uid');
+    }
 }

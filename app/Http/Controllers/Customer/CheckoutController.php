@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth ; 
-use Illuminate\Http\Request;
 use App\Http\Requests\Payment; 
 use App\Models\CouponUsed ;
 use App\Models\Oders ;
@@ -12,6 +11,8 @@ use App\Models\Products ;
 use App\Models\OderDetail ;
 use App\Models\Carts ;
 use App\Models\CartItems ;
+use App\Mail\MailNotify;
+use Illuminate\Support\Facades\Mail;
 
 class CheckoutController extends Controller
 {
@@ -21,7 +22,7 @@ class CheckoutController extends Controller
         $order = new Oders();
         $total_price = $cart->total;
         $cart_item = Carts::where('id',$cart->id)->first()->cart_items()->join('products','cart_items.pro_id','=','products.id')->select('cart_items.size','cart_items.count','products.title','products.promotion_price','products.price')->get() ;
-        $coupon = CouponUsed::where('cart_id',$cart->id)->join('coupons','coupon_useds.coupon_id','=','coupons.id')->select('coupons.content','coupons.value')->get();;
+        $coupon = CouponUsed::where('cart_id',$cart->id)->join('coupons','coupon_useds.coupon_id','=','coupons.id')->select('coupons.content','coupons.value')->get();
         return view('customer.checkout.index',compact("total_price",'cart_item','coupon'));
     }
 
@@ -31,6 +32,9 @@ class CheckoutController extends Controller
         $cart = Carts::where('uid',$uid)->first();
         $address = $req->c_province . '/' .$req->c_district . '/'. $req->c_ward ;
         $fullname = $req->c_fname . ' '. $req->c_lname ;
+        $total_price = $cart->total;
+        $cart_item = Carts::where('id',$cart->id)->first()->cart_items()->join('products','cart_items.pro_id','=','products.id')->select('cart_items.size','cart_items.count','products.title','products.promotion_price','products.price')->get() ;
+        $coupon = CouponUsed::where('cart_id',$cart->id)->join('coupons','coupon_useds.coupon_id','=','coupons.id')->select('coupons.content','coupons.value')->get();
         if($cart->total <= 0){
             return redirect()->back()->withErrors('invalid','You must buy something!');
         }
@@ -46,7 +50,6 @@ class CheckoutController extends Controller
             $vnp_Locale = 'VI';
             $vnp_BankCode = 'NCB';
             $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
-            //Add Params of 2.0.1 Version
             $inputData = array(
                 "vnp_Version" => "2.1.0",
                 "vnp_TmnCode" => $vnp_TmnCode,
@@ -67,7 +70,6 @@ class CheckoutController extends Controller
             if (isset($vnp_Bill_State) && $vnp_Bill_State != "") {
                 $inputData['vnp_Bill_State'] = $vnp_Bill_State;
             }
-            //var_dump($inputData);
             ksort($inputData);
             $query = "";
             $i = 0;
@@ -90,6 +92,7 @@ class CheckoutController extends Controller
                 , 'message' => 'success'
                 , 'data' => $vnp_Url);
             if (isset($_POST['redirect'])) {
+                Mail::to($req['c_email_address'])->send(new MailNotify($cart_item, $fullname, $total_price, $coupon));
                 $newOrder = Oders::create([
                     'status'=> 0,
                     'uid' => $uid,
@@ -126,6 +129,7 @@ class CheckoutController extends Controller
                 echo json_encode($returnData);
             }
         }else{
+            Mail::to($req['c_email_address'])->send(new MailNotify($cart_item, $fullname, $total_price, $coupon));
             $newOrder = Oders::create([
                 'status'=> 0,
                 'uid' => $uid,

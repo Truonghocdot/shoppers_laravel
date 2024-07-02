@@ -20,7 +20,8 @@
                             <div class="col-md-6">
                                 <label for="c_fname" class="text-black">First Name <span
                                         class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="c_fname" name="c_fname">
+                                <input type="text" class="form-control" id="c_fname" value="{{ old('c_fname') }}"
+                                    name="c_fname">
                             </div>
                             @error('c_fname')
                                 <span class="text-danger">{{ $message }}</span>
@@ -28,7 +29,8 @@
                             <div class="col-md-6">
                                 <label for="c_lname" class="text-black">Last Name <span
                                         class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="c_lname" name="c_lname">
+                                <input type="text" class="form-control" id="c_lname" name="c_lname"
+                                    value="{{ old('c_lname') }}">
                             </div>
                             @error('c_lname')
                                 <span class="text-danger">{{ $message }}</span>
@@ -111,7 +113,7 @@
                                 <label for="c_district" class="text-black">District <span
                                         class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="c_district" name="c_district"
-                                    placeholder="Street address">
+                                    value="{{ old('c_district') }}" placeholder="Street address">
                             </div>
                         </div>
                         @error('c_district')
@@ -121,7 +123,7 @@
                             <div class="col-md-12">
                                 <label for="c_ward" class="text-black">Ward <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="c_ward" name="c_ward"
-                                    placeholder="Street address">
+                                    value="{{ old('c_ward') }}" placeholder="Street address">
                             </div>
                         </div>
                         @error('c_ward')
@@ -131,15 +133,16 @@
                             <div class="col-md-6">
                                 <label for="c_email_address" class="text-black">Email Address <span
                                         class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="c_email_address" name="c_email_address">
+                                <input type="text" class="form-control" id="c_email_address" name="c_email_address"
+                                    value="{{ old('c_email_address') }}">
                             </div>
                             @error('c_email_address')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                             <div class="col-md-6">
                                 <label for="c_phone" class="text-black">Phone <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="c_phone" name="c_phone"
-                                    placeholder="Phone Number">
+                                <input type="number" class="form-control" id="c_phone" name="c_phone"
+                                    value="{{ old('c_phone') }}" placeholder="Phone Number">
                             </div>
                             @error('c_phone')
                                 <span class="text-danger">{{ $message }}</span>
@@ -149,7 +152,7 @@
                         <div class="form-group">
                             <label for="c_order_notes" class="text-black">Order Notes</label>
                             <textarea name="c_order_notes" id="c_order_notes" cols="30" rows="5" class="form-control"
-                                placeholder="Write your notes here..."></textarea>
+                                value="{{ old('c_order_notes') }}" placeholder="Write your notes here..."></textarea>
                         </div>
                     </div>
                 </div>
@@ -161,14 +164,19 @@
                                 <table class="table site-block-order-table mb-5">
                                     <thead>
                                         <th>Product</th>
+                                        <th>Size</th>
+                                        <th>Count</th>
                                         <th>Total</th>
                                     </thead>
                                     <tbody>
                                         @if (count($cart_item) > 0)
                                             @foreach ($cart_item as $item)
                                                 <tr>
-                                                    <td>{{ $item->title }} <strong
-                                                            class="mx-2">{{ $item->size }}</strong>
+                                                    <td>{{ $item->title }}
+
+                                                    </td>
+                                                    <td><strong class="mx-2">{{ $item->size }}</strong></td>
+                                                    <td>
                                                         {{ $item->count }}
                                                     </td>
                                                     <td>
@@ -204,6 +212,8 @@
                                     <tbody>
                                         <tr>
                                             <td class="text-black font-weight-bold"><strong>Order Total</strong></td>
+                                            <td></td>
+                                            <td></td>
                                             <td class="text-black font-weight-bold"><strong>${{ $total_price }}</strong>
                                             </td>
                                         </tr>
